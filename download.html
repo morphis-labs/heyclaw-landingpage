@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download heyclaw</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0a0a0b;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent: #ff6b4a;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #ff6b4a 0%, #ff3d7f 100%);
+      top: -100px;
+      right: -100px;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #4a9fff 0%, #a855f7 100%);
+      bottom: -100px;
+      left: -100px;
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, -20px) scale(1.05); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 400px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 60px;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+    }
+
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--accent) 0%, #ff3d7f 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin: 0 auto 32px;
+      box-shadow: 0 20px 60px rgba(255, 107, 74, 0.3);
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
+    }
+
+    .version {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 18px 32px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      border-radius: 100px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin-bottom: 16px;
+    }
+
+    .download-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+
+    .download-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .platform {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 48px;
+    }
+
+    .requirements {
+      padding: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .requirements h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .requirements ul {
+      list-style: none;
+    }
+
+    .requirements li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .requirements li::before {
+      content: "•";
+      color: var(--accent);
+    }
+
+    .back-link {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="container">
+    <a href="/" class="logo">heyclaw</a>
+
+    <div class="app-icon">🦞</div>
+    <h1>Download heyclaw</h1>
+    <p class="version">Version 0.1.0</p>
+
+    <a href="/releases/Heyclaw_0.1.0_aarch64.dmg" class="download-btn" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download for Mac
+    </a>
+    <p class="platform">macOS 10.15+ • Apple Silicon</p>
+
+    <div class="requirements">
+      <h3>Requirements</h3>
+      <ul>
+        <li>macOS Catalina or later</li>
+        <li>Apple Silicon (M1/M2/M3)</li>
+        <li>Internet connection</li>
+      </ul>
+    </div>
+  </div>
+
+  <a href="/" class="back-link">← Back to heyclaw.com</a>
+</body>
+</html>

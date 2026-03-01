@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>heyclaw - AI-Powered Instagram Growth</title>
-  <meta name="description" content="Grow your Instagram with AI-powered insights. Analyze reels, discover accounts, get daily reports.">
+  <title>heyclaw - AI Instagram Growth</title>
+  <meta name="description" content="Grow your Instagram with AI. Daily insights, viral reel analysis, account discovery.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,52 +15,56 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #0a0a0b;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent: #ff6b4a;
+      --accent-glow: rgba(255, 107, 74, 0.4);
+    }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #07080a;
-      color: #ffffff;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(7, 8, 10, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
+    /* Floating Nav */
     nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px 24px;
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 32px;
+      padding: 14px 28px;
+      background: rgba(20, 20, 22, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
     }
 
     .logo {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 600;
-      color: #ffffff;
+      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.5px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 24px;
     }
 
     .nav-links a {
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
@@ -68,7 +72,7 @@
     }
 
     .nav-links a:hover {
-      color: #ffffff;
+      color: var(--text);
     }
 
     .btn {
@@ -77,34 +81,23 @@
       justify-content: center;
       gap: 8px;
       padding: 10px 20px;
-      border-radius: 8px;
+      border-radius: 100px;
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.3s;
       cursor: pointer;
       border: none;
     }
 
     .btn-primary {
-      background: #ffffff;
-      color: #07080a;
+      background: var(--text);
+      color: var(--bg);
     }
 
     .btn-primary:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
     }
 
     /* Hero */
@@ -114,59 +107,95 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 120px 24px 80px;
+      padding: 120px 24px;
       text-align: center;
       position: relative;
     }
 
-    .hero::before {
-      content: '';
+    /* Animated gradient orbs */
+    .orb {
       position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #ff6b4a 0%, #ff3d7f 100%);
+      top: 10%;
+      right: 15%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #4a9fff 0%, #a855f7 100%);
+      bottom: 20%;
+      left: 10%;
+      animation-delay: -2s;
+    }
+
+    .orb-3 {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+      top: 40%;
+      left: 20%;
+      animation-delay: -4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
     }
 
     .hero-content {
-      max-width: 700px;
       position: relative;
       z-index: 1;
+      max-width: 700px;
     }
 
-    .hero-badge {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 100px;
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--text-muted);
       margin-bottom: 32px;
     }
 
-    .hero-badge span {
+    .hero-tag .dot {
       width: 6px;
       height: 6px;
       background: #22c55e;
       border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
     }
 
     .hero h1 {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 700;
       line-height: 1.1;
       margin-bottom: 24px;
       letter-spacing: -2px;
     }
 
-    .hero h1 .gradient {
-      background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%);
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent) 0%, #ff3d7f 50%, #a855f7 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -174,9 +203,9 @@
 
     .hero p {
       font-size: 18px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 48px;
-      max-width: 500px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 480px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -185,146 +214,146 @@
       display: flex;
       gap: 16px;
       justify-content: center;
-      flex-wrap: wrap;
     }
 
     .hero-buttons .btn {
-      padding: 14px 28px;
+      padding: 14px 32px;
       font-size: 15px;
     }
 
-    /* Comparison Section */
-    .comparison {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: 900px;
-      margin: 0 auto;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      overflow: hidden;
+    .btn-ghost:hover {
+      background: var(--card);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
-    @media (max-width: 640px) {
-      .comparison-grid {
-        grid-template-columns: 1fr;
-      }
+    /* Value Section */
+    .value {
+      padding: 120px 24px;
+      text-align: center;
     }
 
-    .comparison-card {
-      padding: 32px;
-    }
-
-    .comparison-card:first-child {
-      background: rgba(255, 255, 255, 0.02);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 640px) {
-      .comparison-card:first-child {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-    }
-
-    .comparison-card h3 {
-      font-size: 12px;
+    .value h2 {
+      font-size: 14px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--accent);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       margin-bottom: 24px;
     }
 
-    .comparison-card.heyclaw h3 {
-      color: #a855f7;
-    }
-
-    .comparison-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .comparison-item:last-child {
-      border-bottom: none;
-    }
-
-    .comparison-item span:first-child {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
-    }
-
-    .comparison-item span:last-child {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .comparison-card.heyclaw .comparison-item span:last-child {
-      color: #22c55e;
+    .value-statement {
+      font-size: 48px;
       font-weight: 600;
-    }
-
-    .comparison-item.total span {
-      font-weight: 600;
-      color: white;
-    }
-
-    .comparison-card.heyclaw .comparison-item.total span:last-child {
-      color: #22c55e;
-    }
-
-    /* Features */
-    .features {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 64px;
-    }
-
-    .section-header h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 16px;
+      line-height: 1.2;
+      max-width: 800px;
+      margin: 0 auto;
       letter-spacing: -1px;
     }
 
-    .section-header p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.5);
+    .value-statement .fade {
+      color: var(--text-muted);
+    }
+
+    /* Comparison */
+    .comparison {
+      padding: 80px 24px;
+    }
+
+    .comparison-container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .compare-card {
+      padding: 48px;
+      background: var(--bg);
+    }
+
+    .compare-card h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 32px;
+    }
+
+    .compare-card.active h3 {
+      color: var(--accent);
+    }
+
+    .compare-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+    }
+
+    .compare-item:last-child {
+      border-bottom: none;
+      padding-top: 24px;
+      font-weight: 600;
+    }
+
+    .compare-card.active .compare-item span:last-child {
+      color: #22c55e;
+    }
+
+    /* Features - Interactive Cards */
+    .features {
+      padding: 120px 24px;
+    }
+
+    .features-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .features-header h2 {
+      font-size: 40px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .features-header p {
+      color: var(--text-muted);
+      font-size: 18px;
     }
 
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      max-width: 1100px;
+      gap: 16px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .feature-card {
       padding: 32px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      transition: all 0.3s;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      transition: all 0.4s;
+      cursor: default;
     }
 
     .feature-card:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-4px);
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .feature-icon {
@@ -335,130 +364,31 @@
     .feature-card h3 {
       font-size: 18px;
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .feature-card p {
-      color: rgba(255, 255, 255, 0.5);
       font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* Pricing */
-    .pricing {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      position: relative;
-    }
-
-    .pricing-card.popular {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .popular-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #a855f7, #6366f1);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .pricing-card h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .pricing-card .price {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -2px;
-    }
-
-    .pricing-card .price span {
-      font-size: 16px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 0;
-    }
-
-    .pricing-card .description {
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 32px;
-      font-size: 14px;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .pricing-features li {
-      padding: 10px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .pricing-features li:last-child {
-      border-bottom: none;
-    }
-
-    .pricing-features li::before {
-      content: "✓";
-      color: #22c55e;
-      font-weight: 600;
-    }
-
-    .pricing-card .btn {
-      width: 100%;
-      padding: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
     }
 
     /* CTA */
     .cta {
-      padding: 120px 24px;
+      padding: 160px 24px;
       text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
       position: relative;
     }
 
     .cta::before {
       content: '';
       position: absolute;
-      bottom: 0;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -468,175 +398,169 @@
     }
 
     .cta h2 {
-      font-size: 40px;
+      font-size: 52px;
       font-weight: 700;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       letter-spacing: -1px;
     }
 
     .cta p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.5);
+      font-size: 18px;
+      color: var(--text-muted);
       margin-bottom: 40px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+    }
+
+    .cta .btn {
+      padding: 18px 40px;
+      font-size: 16px;
     }
 
     /* Footer */
     footer {
-      padding: 40px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
-    }
-
-    .footer-logo {
-      font-size: 18px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .footer-links {
-      display: flex;
+      justify-content: center;
       gap: 32px;
     }
 
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.4);
+    footer a {
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 13px;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover {
-      color: rgba(255, 255, 255, 0.8);
+    footer a:hover {
+      color: var(--text);
+    }
+
+    /* Scroll animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Responsive */
-    @media (max-width: 900px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 36px;
-        letter-spacing: -1px;
-      }
-
-      .hero p {
-        font-size: 16px;
+      nav {
+        padding: 12px 20px;
+        gap: 16px;
       }
 
       .nav-links a:not(.btn) {
         display: none;
       }
 
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .value-statement {
+        font-size: 32px;
+      }
+
+      .comparison-container {
+        grid-template-columns: 1fr;
+      }
+
       .features-grid {
         grid-template-columns: 1fr;
       }
 
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-header h2,
       .cta h2 {
-        font-size: 28px;
+        font-size: 36px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <nav>
-      <a href="/" class="logo">heyclaw</a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#" class="btn btn-primary">Get Started</a>
-      </div>
-    </nav>
-  </header>
+  <!-- Floating Nav -->
+  <nav>
+    <a href="/" class="logo">heyclaw</a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="/checkout.html">Log in</a>
+      <a href="/download.html" class="btn btn-primary">Get Started</a>
+    </div>
+  </nav>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span></span>
-        AI-Powered Instagram Analytics
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="hero-content fade-in">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        AI-Powered Growth
       </div>
-      <h1>Grow your Instagram with <span class="gradient">AI insights</span></h1>
-      <p>Analyze reels performance, discover similar accounts, and get daily actionable reports to grow your audience.</p>
+      <h1>Grow your Instagram<br><span class="highlight">in minutes, not hours</span></h1>
+      <p>Daily viral reel insights. Account discovery. AI chat. Everything you need to grow faster.</p>
       <div class="hero-buttons">
-        <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
-        <a href="#features" class="btn btn-secondary">See Features</a>
+        <a href="/download.html" class="btn btn-primary">Download Free</a>
+        <a href="#features" class="btn btn-ghost">Learn More</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Value Statement -->
+  <section class="value">
+    <div class="fade-in">
+      <h2>Why heyclaw</h2>
+      <p class="value-statement">
+        Stop scrolling through competitors manually.
+        <span class="fade">Let AI analyze what's working and tell you exactly what to create next.</span>
+      </p>
     </div>
   </section>
 
   <!-- Comparison -->
   <section class="comparison">
-    <div class="section-header">
-      <h2>Traditional vs heyclaw</h2>
-      <p>Stop wasting hours on manual research. Let AI do the heavy lifting.</p>
-    </div>
-    <div class="comparison-grid">
-      <div class="comparison-card">
-        <h3>Without heyclaw</h3>
-        <div class="comparison-item">
-          <span>Analyze competitor accounts</span>
-          <span>30+ min</span>
-        </div>
-        <div class="comparison-item">
-          <span>Track reel performance</span>
-          <span>20+ min</span>
-        </div>
-        <div class="comparison-item">
-          <span>Find trending content ideas</span>
+    <div class="comparison-container fade-in">
+      <div class="compare-card">
+        <h3>Manual Research</h3>
+        <div class="compare-item">
+          <span>Find trending content</span>
           <span>45+ min</span>
         </div>
-        <div class="comparison-item">
-          <span>Identify growth opportunities</span>
-          <span>60+ min</span>
+        <div class="compare-item">
+          <span>Analyze competitors</span>
+          <span>30+ min</span>
         </div>
-        <div class="comparison-item total">
-          <span>Total daily time</span>
+        <div class="compare-item">
+          <span>Track performance</span>
+          <span>20+ min</span>
+        </div>
+        <div class="compare-item">
+          <span>Daily total</span>
           <span>2+ hours</span>
         </div>
       </div>
-      <div class="comparison-card heyclaw">
+      <div class="compare-card active">
         <h3>With heyclaw</h3>
-        <div class="comparison-item">
-          <span>Analyze competitor accounts</span>
+        <div class="compare-item">
+          <span>Find trending content</span>
           <span>Instant</span>
         </div>
-        <div class="comparison-item">
-          <span>Track reel performance</span>
+        <div class="compare-item">
+          <span>Analyze competitors</span>
           <span>Instant</span>
         </div>
-        <div class="comparison-item">
-          <span>Find trending content ideas</span>
+        <div class="compare-item">
+          <span>Track performance</span>
           <span>Instant</span>
         </div>
-        <div class="comparison-item">
-          <span>Identify growth opportunities</span>
-          <span>Instant</span>
-        </div>
-        <div class="comparison-item total">
-          <span>Total daily time</span>
-          <span>&lt;5 min</span>
+        <div class="compare-item">
+          <span>Daily total</span>
+          <span>&lt; 5 min</span>
         </div>
       </div>
     </div>
@@ -644,100 +568,56 @@
 
   <!-- Features -->
   <section class="features" id="features">
-    <div class="section-header">
-      <h2>Everything you need to grow</h2>
-      <p>Powerful AI tools designed specifically for Instagram content creators.</p>
+    <div class="features-header fade-in">
+      <h2>Everything in one app</h2>
+      <p>Simple tools. Powerful results.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">📊</div>
-        <h3>Reels Analytics</h3>
-        <p>Get detailed performance insights for your reels. Understand what works and optimize your content strategy.</p>
+        <h3>Daily TOP 2 Report</h3>
+        <p>Get your best performing reels analyzed with actionable insights every morning.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">🔍</div>
         <h3>Account Discovery</h3>
-        <p>Find similar accounts in your niche for collaboration opportunities and content inspiration.</p>
+        <p>Find similar creators in your niche for inspiration and collaboration.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <h3>Daily TOP 2 Report</h3>
-        <p>Receive daily reports highlighting your best performing content with actionable recommendations.</p>
-      </div>
-      <div class="feature-card">
+      <div class="feature-card fade-in">
         <div class="feature-icon">💬</div>
-        <h3>AI Chat Assistant</h3>
-        <p>Ask questions about your performance and get instant AI-powered insights and recommendations.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Growth Strategies</h3>
-        <p>Get personalized growth strategies based on your content performance and audience engagement.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Real-time Data</h3>
-        <p>Access up-to-date Instagram data to make informed decisions about your content.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section class="pricing" id="pricing">
-    <div class="section-header">
-      <h2>Simple pricing</h2>
-      <p>Choose the plan that fits your needs. Cancel anytime.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <h3>Basic</h3>
-        <div class="price">$9<span>/month</span></div>
-        <p class="description">Perfect for individual creators</p>
-        <ul class="pricing-features">
-          <li>Monitor up to 10 accounts</li>
-          <li>Daily Reels TOP 2 report</li>
-          <li>Basic AI insights</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#" class="btn btn-secondary">Get Started</a>
-      </div>
-      <div class="pricing-card popular">
-        <span class="popular-badge">Popular</span>
-        <h3>Pro</h3>
-        <div class="price">$19<span>/month</span></div>
-        <p class="description">For serious content creators</p>
-        <ul class="pricing-features">
-          <li>Monitor up to 100 accounts</li>
-          <li>Daily Reels TOP 2 report</li>
-          <li>Advanced AI analysis</li>
-          <li>Account discovery agent</li>
-          <li>Priority support</li>
-          <li>Export reports</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Get Started</a>
+        <h3>AI Chat</h3>
+        <p>Ask anything about your performance. Get instant, personalized advice.</p>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
   <section class="cta">
-    <div class="cta-content">
-      <h2>Ready to grow your Instagram?</h2>
-      <p>Join creators using heyclaw to grow their audience with AI-powered insights.</p>
-      <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+    <div class="cta-content fade-in">
+      <h2>Start growing today</h2>
+      <p>Join creators who grow faster with AI insights.</p>
+      <a href="/download.html" class="btn btn-primary">Download Now</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <div class="footer-logo">heyclaw</div>
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@heyclaw.com">Contact</a>
-      </div>
-    </div>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="mailto:support@heyclaw.com">Contact</a>
   </footer>
+
+  <script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
