@@ -7,7 +7,8 @@
   <meta name="description" content="Grow your Instagram with AI-powered insights. Analyze reels, discover accounts, get daily reports.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vampiro+One&family=Urbanist:wght@900&family=Pacifico&family=Bungee+Shade&family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vampiro+One&family=Urbanist:wght@400;500;600;700;900&family=Pacifico&family=Bungee+Shade&family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/bg_top.png" as="image">
   <style>
     :root {
       --bg: #F5F3F0;
@@ -20,57 +21,15 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { overflow: clip; overflow-x: clip; }
+    html { overflow: hidden; }
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* ===== Header ===== */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(245, 243, 240, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo {
-      font-family: 'Caveat', cursive;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .btn-primary { background: var(--red); color: #fff; }
-    .btn-primary:hover {
-      background: #d62f3c;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(230, 57, 70, 0.25);
+      overflow: hidden;
+      height: 100vh;
     }
 
     /* ===== Intro Stage ===== */
@@ -94,6 +53,7 @@
       font-size: 60px;
       font-weight: 400;
       color: var(--text-dark);
+      z-index: 15;
     }
 
     /* Monsters */
@@ -102,7 +62,9 @@
       left: 0; top: 0;
       will-change: transform, opacity;
       pointer-events: none;
+      z-index: 1;
     }
+    #monsterRed { z-index: 8; }
     .stage-monster img {
       width: 100%;
       height: auto;
@@ -111,196 +73,1177 @@
       -webkit-user-drag: none;
     }
 
-    /* Scroll hint */
-    .scroll-hint {
+    /* ===== bg_top banner ===== */
+    .bg-top-banner {
       position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
+      top: 0; left: 0; right: 0;
+      height: 18vh;
+      z-index: 10;
+      transform: translateY(-100%);
       opacity: 0;
-      transition: opacity 0.8s ease;
+      will-change: transform, opacity;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bg-top-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center bottom;
+    }
+
+    /* ===== Subtitle ===== */
+    .stage-subtitle {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, calc(-100% - 45px)) translateY(20px);
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      color: var(--text-dark);
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity;
+      z-index: 20;
+    }
+
+    /* ===== Download Button ===== */
+    .download-btn {
+      position: absolute;
+      left: 50%;
+      top: calc(50% + 78px);
+      transform: translate(-50%, 0) translateY(20px);
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #010101;
+      text-decoration: none;
+      padding: 7px 14px;
+      border: 3px solid #010101;
+      border-radius: 30px;
+      background: transparent;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      pointer-events: none;
+      will-change: transform, opacity, padding, border-radius, box-shadow;
+      cursor: pointer;
+      z-index: 20;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .download-btn:hover {
+      background-image: url('assets/bg_top.png') !important;
+      background-color: #111 !important;
+      background-size: 200% !important;
+      background-position: center !important;
+      color: #fff !important;
+      border-color: transparent !important;
+      border-radius: 50px !important;
+      transform: translate(-50%, 0) scale(1.08) !important;
+      box-shadow:
+        0 6px 20px rgba(0,0,0,0.3),
+        inset 4px 4px 10px rgba(255,255,255,0.25),
+        inset -4px -4px 10px rgba(0,0,0,0.35),
+        inset 0 5px 8px rgba(255,255,255,0.18),
+        inset 0 -5px 8px rgba(0,0,0,0.3),
+        inset 10px 0 12px rgba(255,255,255,0.08),
+        inset -10px 0 12px rgba(255,255,255,0.08) !important;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    /* ===== Social Posts ===== */
+    .social-stack {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .social-post {
+      position: absolute;
+      left: var(--post-x);
+      top: calc(var(--post-y) + 100px);
+      width: var(--post-size);
+      transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(0);
+      opacity: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      will-change: transform, opacity;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+    .social-post.hoverable {
+      animation: none !important;
+      transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(1);
+      opacity: 1;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .social-post.hoverable:hover {
+      transform: translate(-50%, calc(-50% - 14px)) rotate(var(--post-rot)) scale(1.12);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.25);
+    }
+    .social-post.no-radius {
+      border-radius: 0;
+    }
+    .social-post img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .social-post.visible {
+      animation: postBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) var(--post-delay) forwards;
+    }
+
+    @keyframes postBounceIn {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(1.08);
+      }
+      70% {
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(0.95);
+      }
+      85% {
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(1);
+      }
+    }
+
+    /* ===== Scroll Unlock State ===== */
+    html.scrollable { overflow: auto; }
+    html.scrollable body { overflow: auto; height: auto; }
+    .social-post.fixed-post { position: fixed; z-index: 25; }
+    #monsterRed.fixed-monster { position: fixed; z-index: 35; }
+    .bg-top-banner.fixed-banner { position: fixed; z-index: 100; background: var(--bg); }
+    .stage-title.scroll-fixed { position: fixed; left: 50%; z-index: 110; }
+    .stage-subtitle.scroll-fixed { position: fixed; left: 50%; z-index: 110; }
+    .download-btn.scroll-fixed {
+      position: fixed; left: 50%; z-index: 110;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, color 0.3s, border-color 0.3s, border-radius 0.3s, background-color 0.3s, text-shadow 0.3s;
+    }
+
+    /* bg_top transition for pricing */
+    .bg-top-banner.fixed-banner {
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .bg-top-banner.fixed-banner.hide-for-pricing {
+      transform: translateY(0) !important;
+      opacity: 0 !important;
       pointer-events: none;
     }
-    .scroll-hint.visible { opacity: 0.4; }
-    .scroll-hint span {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 1px;
-      text-transform: uppercase;
+
+    /* ===== Features Section ===== */
+    .features-section {
+      position: relative;
+      width: 100%;
+      padding: 0 40px 60px;
+      z-index: 30;
     }
-    .scroll-hint svg {
-      width: 20px; height: 20px;
-      stroke: var(--text-dim);
-      animation: scrollBounce 2s ease-in-out infinite;
-    }
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+    .features-heading {
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* ===== CTA Section ===== */
-    .scene-cta {
-      padding: 100px 24px;
+    /* Features Card */
+    .features-card {
+      display: flex;
+      border: 3px solid #ddd;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.97);
+      min-height: 420px;
+      overflow: hidden;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Sidebar */
+    .features-sidebar {
+      width: 40%;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      border-right: 3px solid #e5e5e5;
+      flex-shrink: 0;
+    }
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+    .sidebar-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    .sidebar-icon img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .sidebar-label {
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+    .sidebar-item.active .sidebar-label {
+      color: var(--text-dark);
+    }
+    .sidebar-desc {
+      display: none;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 1.65;
+      color: var(--text-dim);
+      padding: 3px 0 10px 32px;
+    }
+    .sidebar-desc.active {
+      display: block;
+    }
+
+    /* Right Content */
+    .features-content {
+      flex: 1;
+      padding: 19px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      background: #F2EDE4;
+    }
+    .features-content.active {
+      display: flex;
+    }
+
+    /* Feature Messages */
+    .feat-msg {
+      background: #fff;
+      border-radius: 11px;
+      padding: 11px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      position: relative;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .feat-msg.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .feat-msg strong { font-weight: 600; }
+    .feat-msg-time {
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 4px;
+    }
+    .feat-view-all {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: var(--text-dim);
+      padding: 2px 0;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .feat-view-all.revealed { opacity: 1; transform: translateY(0); }
+
+    /* Image Thumbnails */
+    .feat-thumbs {
+      display: flex;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .feat-thumbs.revealed { opacity: 1; transform: translateY(0); }
+    .feat-thumb {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .feat-thumb img {
+      width: 100%;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      display: block;
+    }
+    .feat-thumb-stat {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+
+    /* Account Cards */
+    .feat-accounts {
+      background: #fff;
+      border: 1px solid #E8E8E8;
+      border-radius: 11px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .feat-accounts.revealed { opacity: 1; transform: translateY(0); }
+    .feat-accounts-title {
+      padding: 11px 14px 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--text-dark);
+    }
+    .feat-account-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .feat-account-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ddd;
+      flex-shrink: 0;
+    }
+    .feat-account-info { flex: 1; min-width: 0; }
+    .feat-account-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 10px;
+      color: var(--text-dark);
+    }
+    .feat-account-name .verified { color: #3b82f6; }
+    .feat-account-bio {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      color: var(--text-dim);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+    .feat-account-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      color: var(--text-dark);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .feat-account-followers { text-align: right; flex-shrink: 0; }
+    .feat-account-followers .count {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-dark);
+    }
+    .feat-account-followers .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      color: var(--text-muted);
+    }
+
+    /* ===== Build Comparison Section ===== */
+    .build-section {
+      background: var(--bg);
+      padding: 80px 40px 120px;
+      position: relative;
+      z-index: 30;
+    }
+    .build-heading {
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      color: var(--text-dark);
+      text-align: center;
+      margin-bottom: 48px;
+      max-width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .build-cards {
+      display: flex;
+      gap: 32px;
+      max-width: 80%;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+    .build-card-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .build-card-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+      margin-bottom: 16px;
       text-align: center;
     }
-    .cta-content h2 {
-      font-family: 'Caveat', cursive;
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 700;
-      margin-bottom: 16px;
-      color: var(--text);
-      opacity: 0; transform: translateY(30px);
+    .build-card-label.vampiro {
+      font-family: 'Vampiro One', cursive;
+      font-weight: 400;
+      font-size: 22px;
     }
-    .cta-content p {
-      font-size: 16px;
-      color: var(--text-dim);
-      margin-bottom: 40px;
-      max-width: 420px;
-      margin-left: auto; margin-right: auto;
-      opacity: 0; transform: translateY(20px);
-    }
-    .cta-content .btn { opacity: 0; transform: translateY(20px); }
-    .cta-monsters {
+    .build-card {
+      width: 100%;
+      border-radius: 16px;
+      padding: 28px 24px;
+      flex: 1;
       display: flex;
+      flex-direction: column;
+    }
+    .build-card.heyclaw-card {
       justify-content: center;
-      gap: clamp(30px, 6vw, 80px);
-      margin-top: 60px;
     }
-    .cta-monster {
-      width: clamp(60px, 9vw, 95px);
-      opacity: 0; transform: translateY(40px);
+    .build-card.manual {
+      border: 3px solid #CFCFCF;
+      background: #FAF9F5;
     }
-    .cta-monster img {
-      width: 100%; height: auto;
-      user-select: none; -webkit-user-drag: none;
+    .build-card.heyclaw-card {
+      border: 3px solid #010101;
+      background: #fff;
     }
-
-    .scene-cta.visible .cta-content h2 { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-    .scene-cta.visible .cta-content p { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards; }
-    .scene-cta.visible .cta-content .btn { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; }
-    .scene-cta.visible .cta-monster:nth-child(1) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards; }
-    .scene-cta.visible .cta-monster:nth-child(2) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards; }
-    .scene-cta.visible .cta-monster:nth-child(3) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards; }
-
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    .build-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
     }
-    @keyframes bounceDrop {
-      0% { transform: translateY(40px); opacity: 0; }
-      50% { opacity: 1; }
-      70% { transform: translateY(-15px); }
-      85% { transform: translateY(4px); }
-      100% { transform: translateY(0); opacity: 1; }
+    .build-row-left {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 8px;
+      color: #010101;
     }
-
-    /* ===== Footer ===== */
-    footer {
-      padding: 40px 24px;
-      border-top: 1px solid var(--border);
+    .build-row-right {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 8px;
+      color: #909090;
     }
-    .footer-content {
-      max-width: 1100px;
-      margin: 0 auto;
+    .build-plus {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: #909090;
+      text-align: center;
+      margin: 16px 0;
+    }
+    .build-divider {
+      height: 1px;
+      background: #D9D9D9;
+      margin: 12px 0;
+    }
+    .build-total {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 24px;
+    }
+    .build-total-left {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: #010101;
+    }
+    .build-total-right {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #010101;
+    }
+    .heyclaw-big {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #000;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .heyclaw-body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      color: #757575;
+      line-height: 1.9;
+    }
+    .heyclaw-body .v {
+      font-family: 'Vampiro One', cursive;
+      font-weight: 400;
+    }
+    .heyclaw-body .hl {
+      color: #000;
+    }
+
+    /* ===== Pricing Section ===== */
+    .pricing-section {
+      position: relative;
+      z-index: 30;
+      overflow: visible;
+    }
+    .pricing-header {
+      position: relative;
+      width: 100%;
+      height: 30vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .pricing-header-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+    .pricing-header-subtitle {
+      position: relative;
+      z-index: 1;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .pricing-header-title {
+      position: relative;
+      z-index: 1;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 56px;
+      color: #fff;
+      text-align: center;
+    }
+    .pricing-cards {
+      display: flex;
+      gap: 40px;
+      max-width: 80%;
+      margin: -40px auto 0;
+      padding: 0 40px 100px;
+      position: relative;
+      z-index: 2;
+    }
+    .pricing-card-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pricing-card-label {
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 400;
+      font-size: 24px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 16px;
+    }
+    .pricing-card-label.pro-label {
+      font-weight: 700;
+      color: #fff;
+    }
+    .pricing-card {
+      width: 100%;
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 32px;
+      border: 2px solid #e0e0e0;
+    }
+    .pricing-card.pro {
+      border: 3px solid #1a1a1a;
+    }
+    .pricing-desc {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .pricing-divider {
+      height: 1px;
+      background: #e5e5e5;
+      margin: 20px 0;
+    }
+    .pricing-price {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 48px;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+    .pricing-price span {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text-dim);
+    }
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pricing-features li {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-dark);
+      padding: 6px 0;
+      line-height: 1.5;
+    }
+    .pricing-features li strong {
+      font-weight: 700;
+    }
+    .pricing-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border: 2px solid #1a1a1a;
+      background: transparent;
+      color: var(--text-dark);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pricing-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .pricing-btn.pro-btn {
+      background: #1a1a1a;
+      color: #fff;
+      border-color: #1a1a1a;
+    }
+    .pricing-btn-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    /* Pricing Monster */
+    .pricing-monster {
+      position: absolute;
+      bottom: -60px;
+      right: 5%;
+      width: 14vw;
+      max-width: 200px;
+      z-index: 40;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      cursor: pointer;
+    }
+    .pricing-monster.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .pricing-monster img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .pricing-monster:hover img {
+      transform: scale(1.08) rotate(-3deg);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes monsterFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .pricing-monster.floating {
+      animation: monsterFloat 3s ease-in-out infinite;
+    }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      position: relative;
+      z-index: 30;
+      padding: 80px 80px 60px;
+      background: var(--bg);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 60px;
+    }
+    .footer-brand {
+      flex-shrink: 0;
+      min-width: 200px;
     }
     .footer-logo {
-      font-family: 'Caveat', cursive;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .footer-links { display: flex; gap: 32px; }
-    .footer-links a {
-      color: var(--text-muted);
+      font-family: 'Vampiro One', cursive;
+      font-weight: 400;
+      font-size: 42px;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      display: block;
       text-decoration: none;
-      font-size: 13px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .footer-socials a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      color: var(--text-dim);
+      text-decoration: none;
       transition: color 0.2s;
     }
-    .footer-links a:hover { color: var(--text); }
+    .footer-socials a:hover { color: var(--text-dark); }
+    .footer-socials svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    .footer-columns {
+      display: flex;
+      gap: 80px;
+      flex: 1;
+    }
+    .footer-col h4 {
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+    .footer-col a {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--text-dark); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 60px auto 0;
+    }
+    .footer-credit {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .footer-credit strong {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .footer-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Urbanist', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #010101;
+      text-decoration: none;
+      padding: 14px 28px;
+      border: 3px solid #010101;
+      border-radius: 30px;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .footer-download-btn:hover {
+      background-image: url('assets/bg_top.png');
+      background-color: #111;
+      background-size: 200%;
+      background-position: center;
+      color: #fff;
+      border-color: transparent;
+      border-radius: 50px;
+      transform: scale(1.08);
+      box-shadow:
+        0 6px 20px rgba(0,0,0,0.3),
+        inset 4px 4px 10px rgba(255,255,255,0.25),
+        inset -4px -4px 10px rgba(0,0,0,0.35),
+        inset 0 5px 8px rgba(255,255,255,0.18),
+        inset 0 -5px 8px rgba(0,0,0,0.3),
+        inset 10px 0 12px rgba(255,255,255,0.08),
+        inset -10px 0 12px rgba(255,255,255,0.08);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+    .footer-download-btn img {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
 
     /* ===== Responsive ===== */
     @media (max-width: 768px) {
-      nav { padding: 12px 16px; }
-      .logo { font-size: 24px; }
-      .btn { padding: 8px 14px; font-size: 12px; }
-    }
-    @media (max-width: 480px) {
-      .cta-monster { width: 70px; }
+      .stage-subtitle { font-size: 16px; white-space: normal; max-width: 90vw; }
+      .download-btn { font-size: 14px; padding: 6px 12px; }
+      .features-section { padding: 0 20px 40px; }
+      .features-card { flex-direction: column; }
+      .features-sidebar { width: 100%; border-right: none; border-bottom: 3px solid #e5e5e5; }
+      .features-heading { font-size: 20px; }
+      .build-cards { flex-direction: column; }
+      .build-section { padding: 60px 20px 80px; }
+      .pricing-cards { flex-direction: column; padding: 0 20px 80px; }
+      .pricing-card-label { color: var(--text-muted); }
+      .pricing-card-label.pro-label { color: var(--text-dark); }
+      .pricing-header-title { font-size: 36px; }
+      .pricing-price { font-size: 36px; }
+      .pricing-monster { width: 30vw; }
+      .site-footer { padding: 60px 24px 40px; }
+      .footer-inner { flex-direction: column; gap: 40px; }
+      .footer-columns { gap: 40px; }
+      .footer-logo { font-size: 32px; }
     }
 
     /* ===== Reduced Motion ===== */
     @media (prefers-reduced-motion: reduce) {
-      .scroll-hint { display: none; }
-      .scene-cta .cta-content h2,
-      .scene-cta .cta-content p,
-      .scene-cta .cta-content .btn,
-      .scene-cta .cta-monster {
+      .social-post {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) rotate(var(--post-rot)) scale(1) !important;
+        animation: none !important;
+      }
+      .bg-top-banner {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+      .stage-subtitle, .download-btn {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) !important;
+      }
+      .feat-msg, .feat-accounts, .feat-thumbs, .feat-view-all {
         opacity: 1 !important;
         transform: none !important;
-        animation: none !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <nav>
-      <a href="/" class="logo">heyclaw</a>
-      <a href="#" class="btn btn-primary">Get Started</a>
-    </nav>
-  </header>
-
   <!-- Intro Animation Stage -->
   <section class="intro-stage" id="stage">
+    <div class="bg-top-banner" id="bgTop"><img src="assets/bg_top.png" alt="" draggable="false"></div>
+
+    <div class="stage-subtitle" id="stageSubtitle">Your AI Agent that brings real living trends in Instagram</div>
     <div class="stage-title" id="stageTitle">heyclaw</div>
+    <a href="#" class="download-btn" id="downloadBtn">🍎 Download for Mac</a>
 
     <div class="stage-monster" id="monsterBlack"><img src="assets/monster-black.png" alt="" draggable="false"></div>
     <div class="stage-monster" id="monsterRed"><img src="assets/monster-red.png" alt="" draggable="false"></div>
     <div class="stage-monster" id="monsterBlue"><img src="assets/monster-blue.png" alt="" draggable="false"></div>
+  </section>
 
-    <div class="scroll-hint" id="scrollHint">
-      <span>Scroll</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <h2 class="features-heading">Meet your 24/7 AI Marketing Team.</h2>
+    <div class="features-card">
+      <!-- Sidebar -->
+      <div class="features-sidebar">
+        <div class="sidebar-item active" data-feature="trend">
+          <div class="sidebar-icon"><img src="assets/monster-red.png" alt=""></div>
+          <span class="sidebar-label">Daily Trend Tracker</span>
+        </div>
+        <div class="sidebar-desc active" id="desc-trend">Track trends in your niche every day. Heyclaw delivers high-performing short-form videos based on your social media profile.</div>
+
+        <div class="sidebar-item" data-feature="scout">
+          <div class="sidebar-icon"><img src="assets/monster-blue.png" alt=""></div>
+          <span class="sidebar-label">Reference Scouter</span>
+        </div>
+        <div class="sidebar-desc" id="desc-scout">Discover accounts worth following in your niche. Heyclaw finds creators tailored to your niche and statistically analyzes their viral strategies so you can replicate what works.</div>
+
+        <div class="sidebar-item" data-feature="create">
+          <div class="sidebar-icon"><img src="assets/monster-black.png" alt=""></div>
+          <span class="sidebar-label">Create your own</span>
+        </div>
+        <div class="sidebar-desc" id="desc-create"></div>
+      </div>
+
+      <!-- Content: Daily Trend Tracker -->
+      <div class="features-content active" id="content-trend">
+        <div class="feat-msg">
+          Good morning Lucia!<br>
+          Here're the top-performing Reels trending in your niche.
+          <div class="feat-msg-time">9:00 AM</div>
+        </div>
+        <div class="feat-msg">
+          📊 <strong>Instagram Reels Performance Analysis Report</strong><br>
+          📅 Analysis Period: Feb 21, 2026 – Mar 6, 2026<br>
+          🔍 Scope: 190 accounts analyzed | Filtered for reels with 100K+ views
+          <div class="feat-msg-time">9:00 AM</div>
+        </div>
+        <div class="feat-msg">
+          <strong>[@askcatgpt]</strong><br>
+          URL: https://www.instagram.com/p/DUyKSQnCMiJ/<br>
+          Views: 1,504,235 / Likes: 12,812 / Comments: 353 / Reposts: 187 /<br>
+          Shares: 4,381<br>
+          Engagement Rate: 1.17%+<br>
+          Outperforming Acc Median By: 2.6x median (22,222 views)<br>
+          Caption: I know. Plot twist. There are 2 main reasons why...
+          <div class="feat-msg-time">9:00 AM</div>
+        </div>
+        <div class="feat-view-all">View All <span>›</span></div>
+        <div class="feat-thumbs">
+          <div class="feat-thumb">
+            <img src="assets/social_posts/video-1.jpg" alt="">
+            <span class="feat-thumb-stat">👁 1.4M</span>
+          </div>
+          <div class="feat-thumb">
+            <img src="assets/social_posts/video-3.png" alt="">
+            <span class="feat-thumb-stat">👁 3.8M</span>
+          </div>
+          <div class="feat-thumb">
+            <img src="assets/social_posts/video-5.png" alt="">
+            <span class="feat-thumb-stat">👁 67.1M</span>
+          </div>
+        </div>
+        <div class="feat-msg-time" style="text-align:right;">9:00 AM</div>
+      </div>
+
+      <!-- Content: Reference Scouter -->
+      <div class="features-content" id="content-scout">
+        <div class="feat-msg">
+          Let me find some fresh accounts for you!<br>
+          I've look for creators in AI &amp; Tech that you're not following yet.
+          <div class="feat-msg-time">9:01 AM</div>
+        </div>
+        <div class="feat-msg">
+          📊 <strong>Instagram Reference Scout Report</strong><br>
+          📅 Analysis Period: Mar 6, 2026
+          <div class="feat-msg-time">9:01 AM</div>
+        </div>
+        <div class="feat-accounts">
+          <div class="feat-accounts-title">Accounts you might like</div>
+          <div class="feat-account-row">
+            <div class="feat-account-avatar" style="background:linear-gradient(135deg,#f472b6,#a78bfa)"></div>
+            <div class="feat-account-info">
+              <div class="feat-account-name">@modern.makeovers <span class="verified">✓</span> Andy Han</div>
+              <div class="feat-account-bio">AI Sims &amp; makeover content 🎮 Turning photos into game characters with AI</div>
+              <div class="feat-account-link">View on Instagram →</div>
+            </div>
+            <div class="feat-account-followers">
+              <div class="count">283K</div>
+              <div class="label">followers</div>
+            </div>
+          </div>
+          <div class="feat-account-row">
+            <div class="feat-account-avatar" style="background:linear-gradient(135deg,#6b7280,#374151)"></div>
+            <div class="feat-account-info">
+              <div class="feat-account-name">@covacut <span class="verified">✓</span> cole</div>
+              <div class="feat-account-bio">Editing tutorials &amp; AI tips ✨ Making epic titles &amp; effects easy</div>
+              <div class="feat-account-link">View on Instagram →</div>
+            </div>
+            <div class="feat-account-followers">
+              <div class="count">255K</div>
+              <div class="label">followers</div>
+            </div>
+          </div>
+          <div class="feat-account-row">
+            <div class="feat-account-avatar" style="background:linear-gradient(135deg,#f97316,#fbbf24)"></div>
+            <div class="feat-account-info">
+              <div class="feat-account-name">@jooshica <span class="verified">✓</span> JJ</div>
+              <div class="feat-account-bio">Korean beauty &amp; makeup 💄 Product reviews, tutorials &amp; K-beauty trends</div>
+              <div class="feat-account-link">View on Instagram →</div>
+            </div>
+            <div class="feat-account-followers">
+              <div class="count">255K</div>
+              <div class="label">followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="feat-msg-time" style="text-align:right;">9:01 AM</div>
+      </div>
+
+      <!-- Content: Create your own (placeholder) -->
+      <div class="features-content" id="content-create">
+        <div class="feat-msg revealed" style="text-align:center;color:var(--text-muted);opacity:1;transform:none;">Coming soon...</div>
+      </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="scene-cta" id="cta">
-    <div class="cta-content">
-      <h2>Ready to grow your Instagram?</h2>
-      <p>Join creators using heyclaw to grow their audience with AI-powered insights.</p>
-      <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 16px;">Start Free Trial</a>
+  <!-- Build Comparison Section -->
+  <section class="build-section" id="buildSection">
+    <h2 class="build-heading">Built with OpenClaw. Easiest deployment for non-tech.</h2>
+    <div class="build-cards">
+      <div class="build-card-wrapper">
+        <div class="build-card-label">Manual Build</div>
+        <div class="build-card manual">
+          <div class="build-row"><span class="build-row-left">Creating SSH keys and storing securely</span><span class="build-row-right">10 min</span></div>
+          <div class="build-row"><span class="build-row-left">Install latest Node.js and NPM with brew through terminal</span><span class="build-row-right">5 min</span></div>
+          <div class="build-row"><span class="build-row-left">Install OpenClaw through terminal</span><span class="build-row-right">7 min</span></div>
+          <div class="build-row"><span class="build-row-left">Setting up OpenClaw through terminal</span><span class="build-row-right">20 min</span></div>
+          <div class="build-row"><span class="build-row-left">Select AI models and define branching logic</span><span class="build-row-right">16 min</span></div>
+          <div class="build-row"><span class="build-row-left">Connect Social Media trackers</span><span class="build-row-right">12 min</span></div>
+          <div class="build-row"><span class="build-row-left">Pairing with Telegram</span><span class="build-row-right">4 min</span></div>
+          <div class="build-row"><span class="build-row-left">Setting up stable cron job agents</span><span class="build-row-right">20 min</span></div>
+          <div class="build-plus">+</div>
+          <div class="build-row"><span class="build-row-left">Pro-tier AI Model Subscriptions</span><span class="build-row-right">$200</span></div>
+          <div class="build-row"><span class="build-row-left">Social Media Tracking APIs</span><span class="build-row-right">$130</span></div>
+          <div class="build-divider"></div>
+          <div class="build-total"><span class="build-total-left">Total</span><span class="build-total-right">100 min + $330</span></div>
+        </div>
+      </div>
+      <div class="build-card-wrapper">
+        <div class="build-card-label vampiro">heyclaw</div>
+        <div class="build-card heyclaw-card">
+          <div class="heyclaw-big">1 min,<br>Starts with $32.</div>
+          <div class="heyclaw-body">
+            <span class="v">heyclaw</span> builds it under 1 min.<br>
+            <span class="v">heyclaw</span> doesn't require you for additional API or MCP.<br>
+            <span class="v">heyclaw</span> sets up OpenClaw on your local, unlocking its full potential — <span class="hl">THE AI THAT ACTUALLY DOES THINGS.</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="cta-monsters">
-      <div class="cta-monster"><img src="assets/monster-black.png" alt="" draggable="false"></div>
-      <div class="cta-monster"><img src="assets/monster-red.png" alt="" draggable="false"></div>
-      <div class="cta-monster"><img src="assets/monster-blue.png" alt="" draggable="false"></div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-header">
+      <img src="assets/bg_top.png" alt="" class="pricing-header-bg" draggable="false">
+      <p class="pricing-header-subtitle">Your AI Agent that brings real living trends in Instagram</p>
+      <h2 class="pricing-header-title">Pricing</h2>
+    </div>
+    <div class="pricing-cards">
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card-label">Basic</div>
+        <div class="pricing-card basic">
+          <p class="pricing-desc">Start exploring with a basic OpenClaw setup and Daily Trend Tracker. Perfect for beginners.</p>
+          <div class="pricing-divider"></div>
+          <div class="pricing-price">$32<span>/mo</span></div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>✓ Pro Level OpenClaw Setup including Security Setup</li>
+            <li>✓ Plus Level AI Models (Open AI / Claude / Gemini / Kimi)</li>
+            <li>✓ Daily Trend Tracker Agent</li>
+            <li>✓ AI Agent for On-demand Social Media Research</li>
+          </ul>
+          <button class="pricing-btn"><img src="assets/monster-black.png" alt="" class="pricing-btn-icon"> Get Started</button>
+        </div>
+      </div>
+      <div class="pricing-card-wrapper">
+        <div class="pricing-card-label pro-label">Pro</div>
+        <div class="pricing-card pro">
+          <p class="pricing-desc">MAX Intelligence. Perfect AI Marketing Teammates.</p>
+          <div class="pricing-divider"></div>
+          <div class="pricing-price">$65<span>/mo</span></div>
+          <div class="pricing-divider"></div>
+          <ul class="pricing-features">
+            <li>✓ Pro Level OpenClaw Setup including Security Setup</li>
+            <li>✓ MAX Level AI Models <strong>(Claude)</strong></li>
+            <li>✓ Daily Trend Tracker Agent</li>
+            <li>✓ Reference Scouter Agent</li>
+            <li>✓ AI Agent for On-demand Social Media Research [UNLIMITED]</li>
+          </ul>
+          <button class="pricing-btn pro-btn"><img src="assets/monster-red.png" alt="" class="pricing-btn-icon"> Get Started</button>
+        </div>
+      </div>
+    </div>
+    <div class="pricing-monster" id="pricingMonster">
+      <img src="assets/monster-red.png" alt="" draggable="false">
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">heyclaw</div>
-      <div class="footer-links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="mailto:support@heyclaw.com">Contact</a>
+  <footer class="site-footer" id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo" data-scroll-top>heyclaw</a>
+        <div class="footer-socials">
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://x.com" target="_blank" rel="noopener" aria-label="X">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
       </div>
+      <div class="footer-columns">
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#" data-scroll-top>Heyclaw</a></li>
+            <li><a href="#features" data-scroll-to="features">Features</a></li>
+            <li><a href="#pricing" data-scroll-to="pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Terms</h4>
+          <ul>
+            <li><a href="terms-of-use.html">Terms of Use</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="mailto:lucia@morphis.app">Contact Support</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-credit">Built by <strong>Lucia Woo</strong> &amp; <strong>One Lee</strong> 🐱</p>
+      <a class="footer-download-btn" href="#">
+        <img src="assets/monster-red.png" alt=""> Download for free
+      </a>
     </div>
   </footer>
 
@@ -314,7 +1257,9 @@
         red: document.getElementById('monsterRed'),
         blue: document.getElementById('monsterBlue'),
       };
-      var scrollHint = document.getElementById('scrollHint');
+      var bgTopEl = document.getElementById('bgTop');
+      var subtitleEl = document.getElementById('stageSubtitle');
+      var downloadBtnEl = document.getElementById('downloadBtn');
 
       // ---- Viewport-aware helpers ----
       function peekY(monsterVw, fraction) {
@@ -326,29 +1271,26 @@
       var HIDDEN = 130;
       var s = window.innerWidth < 768 ? 1.6 : 1;
 
-      // ---- Title timeline (always centered, with bump) ----
-      // Title stays at center (50vw, 50vh via CSS), we only animate opacity + scale
+      // ---- Title timeline ----
       var titleTimeline = [
         { t: 0,    opacity: 0, scale: 0.85 },
-        { t: 250,  opacity: 1, scale: 1.12 },     // fade in + bump up
-        { t: 450,  opacity: 1, scale: 1.0 },      // settle back
-        { t: 3500, opacity: 1, scale: 1.0 },      // hold
+        { t: 250,  opacity: 1, scale: 1.12 },
+        { t: 450,  opacity: 1, scale: 1.0 },
+        { t: 3500, opacity: 1, scale: 1.0 },
+        { t: 6000, opacity: 1, scale: 1.0 },
       ];
 
-      // ---- Scene 3 font switching (discrete, not interpolated) ----
-      // Cycle: Urbanist(4f/133ms) → Pacifico(6f/200ms) → Bungee Shade(4f/133ms) = 466ms per loop
-      // Repeat 3 times, then back to Vampiro One
+      // ---- Scene 3 font switching ----
       var fontCycle = [
         { dur: 133, font: "'Urbanist', sans-serif", weight: 900 },
         { dur: 200, font: "'Pacifico', cursive", weight: 400 },
         { dur: 133, font: "'Bungee Shade', cursive", weight: 400 },
       ];
       var SCENE3_START = 1333;
-      var CYCLE_DUR = 133 + 200 + 133; // 466ms per loop
+      var CYCLE_DUR = 133 + 200 + 133;
       var SCENE3_REPEATS = 3;
-      var SCENE3_END = SCENE3_START + CYCLE_DUR * SCENE3_REPEATS; // 2731ms
+      var SCENE3_END = SCENE3_START + CYCLE_DUR * SCENE3_REPEATS;
 
-      // Build fontSwitches array: 3 full cycles + final Vampiro One
       var fontSwitches = [];
       for (var rep = 0; rep < SCENE3_REPEATS; rep++) {
         var offset = SCENE3_START + rep * CYCLE_DUR;
@@ -365,6 +1307,8 @@
       var blackPeek = peekY(15 * s, 0.55);
       var redPeek = peekY(18 * s, 0.55);
       var bluePeek = peekY(16 * s, 0.55);
+      var redFinalW = 18 * s;
+      var redFinalY = peekY(redFinalW, 0.45) - (70 / window.innerHeight) * 100;
 
       var monsterTimeline = {
         black: [
@@ -374,9 +1318,15 @@
           { t: 600,  opacity: 0, x: 50, y: HIDDEN, w: 15*s, orbit: 0 },
           { t: 2000, opacity: 0, x: 75, y: HIDDEN, w: 11*s, orbit: 0 },
           { t: 2200, opacity: 1, x: 75, y: 82, w: 11*s, orbit: 2 },
-          { t: 2500, opacity: 1, x: 78, y: 68, w: 13*s, orbit: 5 },
-          { t: 2800, opacity: 0.6, x: 95, y: 95, w: 13*s, orbit: 10 },
-          { t: 3000, opacity: 0, x: 115, y: 115, w: 13*s, orbit: 16 },
+          { t: 2600, opacity: 1, x: 72, y: 65, w: 9*s, orbit: 1 },
+          { t: 3200, opacity: 1, x: 70, y: 52, w: 8*s, orbit: 0 },
+          { t: 3500, opacity: 1, x: 70, y: 52, w: 8*s, orbit: 0 },
+          // Scene 4: converge center-bottom, exit right
+          { t: 3800, opacity: 1, x: 62, y: 68, w: 8*s, orbit: 0 },
+          { t: 4200, opacity: 1, x: 55, y: 78, w: 7*s, orbit: 0 },
+          { t: 4800, opacity: 1, x: 110, y: 80, w: 7*s, orbit: 0 },
+          { t: 5200, opacity: 0, x: 120, y: 80, w: 7*s, orbit: 0 },
+          { t: 6000, opacity: 0, x: 120, y: 80, w: 7*s, orbit: 0 },
         ],
         red: [
           { t: 0,    opacity: 0, x: 50, y: HIDDEN, w: 18*s, orbit: 0 },
@@ -384,25 +1334,113 @@
           { t: 900,  opacity: 1, x: 50, y: redPeek, w: 18*s, orbit: 0 },
           { t: 1280, opacity: 1, x: 50, y: redPeek, w: 18*s, orbit: 0 },
           { t: 1650, opacity: 1, x: 22, y: 35, w: 18*s, orbit: 3 },
-          { t: 2100, opacity: 1, x: 38, y: 20, w: 16*s, orbit: 5 },
-          { t: 2500, opacity: 1, x: 68, y: 15, w: 14*s, orbit: 7 },
-          { t: 2800, opacity: 0.6, x: 85, y: -10, w: 14*s, orbit: 12 },
-          { t: 3000, opacity: 0, x: 105, y: -30, w: 14*s, orbit: 18 },
+          { t: 2100, opacity: 1, x: 38, y: 28, w: 14*s, orbit: 2 },
+          { t: 2600, opacity: 1, x: 50, y: 24, w: 8*s, orbit: 1 },
+          { t: 3200, opacity: 1, x: 55, y: 20, w: 5*s, orbit: 0 },
+          { t: 3500, opacity: 1, x: 55, y: 20, w: 5*s, orbit: 0 },
+          // Scene 4: move to center-bottom, settle peeking from bottom
+          { t: 3800, opacity: 1, x: 52, y: 45, w: 10*s, orbit: 0 },
+          { t: 4200, opacity: 1, x: 50, y: 65, w: 14*s, orbit: 0 },
+          { t: 4800, opacity: 1, x: 50, y: redFinalY, w: redFinalW, orbit: 0 },
+          { t: 5200, opacity: 1, x: 50, y: redFinalY, w: redFinalW, orbit: 0 },
+          { t: 6000, opacity: 1, x: 50, y: redFinalY, w: redFinalW, orbit: 0 },
         ],
         blue: [
           { t: 0,    opacity: 0, x: 80, y: HIDDEN, w: 16*s, orbit: 0 },
           { t: 1333, opacity: 0, x: 80, y: HIDDEN, w: 16*s, orbit: 0 },
           { t: 1700, opacity: 1, x: 80, y: bluePeek, w: 16*s, orbit: 0 },
-          { t: 2100, opacity: 1, x: 45, y: 70, w: 16*s, orbit: 4 },
-          { t: 2500, opacity: 1, x: 20, y: 50, w: 14*s, orbit: 6 },
-          { t: 2800, opacity: 0.6, x: -10, y: 55, w: 14*s, orbit: 12 },
-          { t: 3000, opacity: 0, x: -30, y: 60, w: 14*s, orbit: 18 },
+          { t: 2100, opacity: 1, x: 55, y: 60, w: 16*s, orbit: 3 },
+          { t: 2600, opacity: 1, x: 38, y: 57, w: 15*s, orbit: 1 },
+          { t: 3200, opacity: 1, x: 28, y: 55, w: 14*s, orbit: 0 },
+          { t: 3500, opacity: 1, x: 28, y: 55, w: 14*s, orbit: 0 },
+          // Scene 4: converge center-bottom, exit left
+          { t: 3800, opacity: 1, x: 38, y: 68, w: 12*s, orbit: 0 },
+          { t: 4200, opacity: 1, x: 45, y: 78, w: 10*s, orbit: 0 },
+          { t: 4800, opacity: 1, x: -15, y: 80, w: 10*s, orbit: 0 },
+          { t: 5200, opacity: 0, x: -25, y: 80, w: 10*s, orbit: 0 },
+          { t: 6000, opacity: 0, x: -25, y: 80, w: 10*s, orbit: 0 },
         ],
       };
 
       // Orbital phase offsets (120° apart)
       var orbitPhase = { red: 0, blue: (2 * Math.PI) / 3, black: (4 * Math.PI) / 3 };
       var ORBIT_SPEED = 0.004;
+
+      // ---- Social Posts Config ----
+      // Positions mapped from reference image
+      // Right-triangle layout: bottom-heavy, more spread toward center at bottom
+      // trend files: rot=0, no border-radius
+      var socialPostsConfig = {
+        left: [
+          // top area (few, near edge)
+          { src: 'video-15.png', x: 2,  y: 8,  rot: 3,   size: 9 },
+          { src: 'video-1.jpg',  x: -2, y: 22, rot: -5,  size: 11 },
+          // middle area
+          { src: 'trend-1.png',  x: 3,  y: 38, rot: 0,   size: 13 },
+          { src: 'video-3.png',  x: 14, y: 32, rot: 8,   size: 11 },
+          { src: 'video-5.png',  x: 10, y: 48, rot: 5,   size: 13 },
+          { src: 'trend-2.png',  x: -1, y: 55, rot: 0,   size: 12 },
+          { src: 'video-13.png', x: 22, y: 45, rot: 4,   size: 9 },
+          // lower area (most posts, spread wider)
+          { src: 'trend-3.png',  x: 5,  y: 65, rot: 0,   size: 13 },
+          { src: 'video-7.png',  x: 20, y: 60, rot: 12,  size: 11 },
+          { src: 'trend-4.png',  x: 14, y: 72, rot: 0,   size: 12 },
+          { src: 'video-9.png',  x: 28, y: 68, rot: 6,   size: 10 },
+          { src: 'trend-5.png',  x: -2, y: 80, rot: 0,   size: 12 },
+          { src: 'video-11.png', x: 22, y: 82, rot: 10,  size: 11 },
+          { src: 'trend-6.png',  x: 10, y: 90, rot: 0,   size: 11 },
+          { src: 'trend-7.png',  x: 32, y: 88, rot: 0,   size: 10 },
+        ],
+        right: [
+          // top area (few, near edge)
+          { src: 'video-20.png', x: 98, y: 8,  rot: -3,  size: 9 },
+          { src: 'video-2.png',  x: 102, y: 22, rot: 5,  size: 11 },
+          // middle area
+          { src: 'trend-8.png',  x: 97, y: 38, rot: 0,   size: 13 },
+          { src: 'video-4.png',  x: 86, y: 32, rot: -8,  size: 11 },
+          { src: 'video-6.png',  x: 90, y: 48, rot: -5,  size: 13 },
+          { src: 'trend-9.png',  x: 101, y: 55, rot: 0,  size: 12 },
+          { src: 'video-18.png', x: 78, y: 45, rot: -4,  size: 9 },
+          // lower area (most posts, spread wider)
+          { src: 'trend-10.png', x: 95, y: 65, rot: 0,   size: 13 },
+          { src: 'video-8.png',  x: 80, y: 60, rot: -12, size: 11 },
+          { src: 'video-10.png', x: 86, y: 72, rot: -6,  size: 12 },
+          { src: 'video-12.png', x: 72, y: 68, rot: 3,   size: 10 },
+          { src: 'video-14.png', x: 102, y: 80, rot: -3, size: 12 },
+          { src: 'video-16.png', x: 78, y: 82, rot: -10, size: 11 },
+          { src: 'video-17.png', x: 90, y: 90, rot: 8,   size: 11 },
+          { src: 'video-19.png', x: 68, y: 88, rot: 6,   size: 10 },
+        ]
+      };
+
+      // ---- Create social post elements ----
+      var socialPosts = [];
+      var stage = document.getElementById('stage');
+
+      ['left', 'right'].forEach(function(side) {
+        socialPostsConfig[side].forEach(function(cfg, i) {
+          var post = document.createElement('div');
+          var isTrend = cfg.src.indexOf('trend') === 0;
+          post.className = 'social-post' + (isTrend ? ' no-radius' : '');
+          post.setAttribute('data-side', side);
+          post.style.setProperty('--post-x', cfg.x + 'vw');
+          post.style.setProperty('--post-y', cfg.y + 'vh');
+          post.style.setProperty('--post-rot', cfg.rot + 'deg');
+          post.style.setProperty('--post-size', cfg.size + 'vw');
+          // Stagger across all 30 posts over ~1.5s
+          var globalIndex = side === 'left' ? i : i + 15;
+          post.style.setProperty('--post-delay', (globalIndex * 50) + 'ms');
+
+          var img = document.createElement('img');
+          img.src = 'assets/social_posts/' + cfg.src;
+          img.alt = '';
+          img.draggable = false;
+          img.loading = 'lazy';
+          post.appendChild(img);
+          stage.appendChild(post);
+          socialPosts.push(post);
+        });
+      });
 
       // ---- Interpolation ----
       function lerp(a, b, t) { return a + (b - a) * t; }
@@ -432,7 +1470,6 @@
         titleEl.style.opacity = state.opacity;
         titleEl.style.transform = 'translate(-50%, -50%) scale(' + state.scale + ')';
 
-        // Discrete font switching during Scene 3
         var newFontIndex = -1;
         for (var i = fontSwitches.length - 1; i >= 0; i--) {
           if (elapsed >= fontSwitches[i].t) { newFontIndex = i; break; }
@@ -461,14 +1498,19 @@
 
       // ---- Animation Loop ----
       var startTime = null;
-      var DURATION = 3500;
-      var done = false;
+      var DURATION = 6000;
+      var SCENE4_START = 3500;
+      var SCENE4_POSTS_START = 4000;
+
+      // Scene 4 flags
+      var scene4Triggered = false;
+      var postsTriggered = false;
 
       function tick(timestamp) {
         if (!startTime) startTime = timestamp;
         var elapsed = timestamp - startTime;
 
-        // Title (always centered, with bump + font switch)
+        // Title
         applyTitle(getKeyframe(titleTimeline, elapsed), elapsed);
 
         // Monsters
@@ -476,15 +1518,213 @@
         applyMonster(els.red, getKeyframe(monsterTimeline.red, elapsed), orbitPhase.red, elapsed);
         applyMonster(els.blue, getKeyframe(monsterTimeline.blue, elapsed), orbitPhase.blue, elapsed);
 
-        if (elapsed > 3200 && !done) {
-          scrollHint.classList.add('visible');
-          done = true;
+        // Scene 4: bg_top slides in, subtitle + button fade in
+        if (elapsed >= SCENE4_START && !scene4Triggered) {
+          scene4Triggered = true;
+
+          // bg_top slides down
+          bgTopEl.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease';
+          bgTopEl.style.opacity = '1';
+          bgTopEl.style.transform = 'translateY(0)';
+
+          // Subtitle fade in + slide up
+          setTimeout(function() {
+            subtitleEl.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease';
+            subtitleEl.style.opacity = '1';
+            subtitleEl.style.transform = 'translate(-50%, calc(-100% - 45px)) translateY(0)';
+          }, 600);
+
+          // Download button
+          setTimeout(function() {
+            downloadBtnEl.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease';
+            downloadBtnEl.style.opacity = '1';
+            downloadBtnEl.style.transform = 'translate(-50%, 0) translateY(0)';
+            downloadBtnEl.style.pointerEvents = 'auto';
+          }, 900);
+        }
+
+        // Scene 4: Social posts bounce in
+        if (elapsed >= SCENE4_POSTS_START && !postsTriggered) {
+          postsTriggered = true;
+          socialPosts.forEach(function(post) {
+            post.classList.add('visible');
+            // After bounce animation ends, switch to hoverable class for hover effects
+            post.addEventListener('animationend', function() {
+              post.classList.remove('visible');
+              post.classList.add('hoverable');
+            }, { once: true });
+          });
         }
 
         if (elapsed < DURATION) {
           requestAnimationFrame(tick);
+        } else {
+          // Animation complete — unlock scrolling
+          onAnimationComplete();
         }
       }
+
+      // ---- Post-animation: Unlock scroll ----
+      var animationDone = false;
+
+      function onAnimationComplete() {
+        if (animationDone) return;
+        animationDone = true;
+
+        setTimeout(function() {
+          document.documentElement.classList.add('scrollable');
+
+          // Convert social posts to fixed positioning (stay visible during scroll)
+          socialPosts.forEach(function(post) {
+            var rect = post.getBoundingClientRect();
+            var centerX = rect.left + rect.width / 2;
+            var centerY = rect.top + rect.height / 2;
+            post.style.left = centerX + 'px';
+            post.style.top = centerY + 'px';
+            post.style.width = rect.width + 'px';
+            post.style.setProperty('--post-x', '0px');
+            post.style.setProperty('--post-y', '0px');
+            post.style.setProperty('--post-size', rect.width + 'px');
+            post.classList.add('fixed-post');
+            post._fixedX = centerX;
+            post._fixedY = centerY;
+          });
+
+          // Convert red monster to fixed
+          var redRect = els.red.getBoundingClientRect();
+          els.red.style.left = redRect.left + 'px';
+          els.red.style.top = redRect.top + 'px';
+          els.red.style.width = redRect.width + 'px';
+          els.red.style.transform = 'none';
+          els.red.classList.add('fixed-monster');
+
+          // Convert bg_top to fixed — stays visible until pricing
+          bgTopEl.classList.add('fixed-banner');
+
+          // Title and download button stay inside .intro-stage (position: absolute)
+          // They scroll naturally with the page — no fixed conversion needed
+
+          // Subtitle: fade out on scroll (stays absolute, fades via opacity)
+          subtitleEl.style.transition = 'none';
+
+          // Scroll handler: fade subtitle, shift posts, fade red monster
+          var scrollRAF = null;
+          window.addEventListener('scroll', function() {
+            if (scrollRAF) return;
+            scrollRAF = requestAnimationFrame(function() {
+              scrollRAF = null;
+              var scrollY = window.scrollY;
+
+              // Subtitle: fade out over first 200px of scroll
+              var subtitleFade = 1 - Math.min(scrollY / 200, 1);
+              subtitleEl.style.opacity = subtitleFade;
+
+              // Social posts: shift outward and downward, fade out
+              var postProgress = Math.min(scrollY / 400, 1);
+              var vw = window.innerWidth;
+              var vh = window.innerHeight;
+              var postFade = 1 - Math.min(scrollY / 800, 1);
+              socialPosts.forEach(function(post) {
+                var side = post.getAttribute('data-side');
+                var dx = side === 'left'
+                  ? -postProgress * 0.15 * vw
+                  : postProgress * 0.15 * vw;
+                var dy = postProgress * 0.18 * vh;
+                post.style.left = (post._fixedX + dx) + 'px';
+                post.style.top = (post._fixedY + dy) + 'px';
+                post.style.opacity = postFade;
+              });
+
+              // Red monster: fade out
+              var monsterFade = 1 - Math.min(scrollY / 250, 1);
+              els.red.style.opacity = monsterFade;
+            });
+          });
+        }, 300);
+      }
+
+      // ---- Sidebar Switching ----
+      var sidebarItems = document.querySelectorAll('.sidebar-item');
+      var sidebarDescs = document.querySelectorAll('.sidebar-desc');
+      var featContents = document.querySelectorAll('.features-content');
+
+      sidebarItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+          var feature = item.getAttribute('data-feature');
+
+          // Deactivate all
+          sidebarItems.forEach(function(si) { si.classList.remove('active'); });
+          sidebarDescs.forEach(function(sd) { sd.classList.remove('active'); });
+          featContents.forEach(function(fc) { fc.classList.remove('active'); });
+
+          // Activate clicked
+          item.classList.add('active');
+          var desc = document.getElementById('desc-' + feature);
+          if (desc) desc.classList.add('active');
+          var content = document.getElementById('content-' + feature);
+          if (content) {
+            content.classList.add('active');
+            revealFeatMessages(content);
+          }
+        });
+      });
+
+      function revealFeatMessages(container) {
+        var items = container.querySelectorAll('.feat-msg, .feat-accounts, .feat-thumbs, .feat-view-all');
+        items.forEach(function(el, i) {
+          el.classList.remove('revealed');
+          setTimeout(function() {
+            el.classList.add('revealed');
+          }, 300 + i * 400);
+        });
+      }
+
+      // IntersectionObserver for initial reveal of features content
+      var featObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var activeContent = entry.target.querySelector('.features-content.active');
+            if (activeContent) revealFeatMessages(activeContent);
+            featObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      var featCard = document.querySelector('.features-card');
+      if (featCard) featObserver.observe(featCard);
+
+      // ---- Pricing Section: Monster reveal, float, and bg_top hide ----
+      var pricingSection = document.querySelector('.pricing-section');
+      var pricingMonster = document.querySelector('.pricing-monster');
+      if (pricingSection && pricingMonster) {
+        var pricingObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              pricingMonster.classList.add('visible');
+              pricingMonster.classList.add('floating');
+              // Hide fixed bg_top banner to reveal pricing header
+              bgTopEl.classList.add('hide-for-pricing');
+              pricingObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05 });
+        pricingObserver.observe(pricingSection);
+      }
+
+      // ---- Footer Navigation ----
+      document.querySelectorAll('[data-scroll-top]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+      document.querySelectorAll('[data-scroll-to]').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var target = document.getElementById(link.getAttribute('data-scroll-to'));
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
 
       // Initialize hidden
       titleEl.style.opacity = '0';
@@ -492,18 +1732,6 @@
 
       // Start animation
       requestAnimationFrame(tick);
-
-      // ---- CTA Intersection Observer ----
-      var ctaSection = document.getElementById('cta');
-      var ctaObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            ctaObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-      ctaObserver.observe(ctaSection);
 
     })();
   </script>
