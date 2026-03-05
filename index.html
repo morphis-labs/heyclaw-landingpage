@@ -7,35 +7,38 @@
   <meta name="description" content="Grow your Instagram with AI-powered insights. Analyze reels, discover accounts, get daily reports.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vampiro+One&family=Urbanist:wght@900&family=Pacifico&family=Bungee+Shade&family=Caveat:wght@400;700&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #F5F3F0;
+      --text: #2b2d42;
+      --text-dark: #1E1E1E;
+      --text-dim: #6b7280;
+      --text-muted: #9ca3af;
+      --red: #e63946;
+      --border: rgba(0, 0, 0, 0.06);
     }
 
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { overflow: clip; overflow-x: clip; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #07080a;
-      color: #ffffff;
-      line-height: 1.6;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Header */
+    /* ===== Header ===== */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
-      background: rgba(7, 8, 10, 0.8);
+      background: rgba(245, 243, 240, 0.85);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-
     nav {
       max-width: 1100px;
       margin: 0 auto;
@@ -44,451 +47,163 @@
       align-items: center;
       justify-content: space-between;
     }
-
     .logo {
-      font-size: 22px;
-      font-weight: 600;
-      color: #ffffff;
+      font-family: 'Caveat', cursive;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
       text-decoration: none;
-      letter-spacing: -0.5px;
     }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nav-links a {
-      color: rgba(255, 255, 255, 0.6);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: #ffffff;
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
       padding: 10px 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 600;
       text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
       border: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
     }
-
-    .btn-primary {
-      background: #ffffff;
-      color: #07080a;
-    }
-
+    .btn-primary { background: var(--red); color: #fff; }
     .btn-primary:hover {
-      background: rgba(255, 255, 255, 0.9);
-      transform: translateY(-1px);
+      background: #d62f3c;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(230, 57, 70, 0.25);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 120px 24px 80px;
-      text-align: center;
+    /* ===== Intro Stage ===== */
+    .intro-stage {
       position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      max-width: 700px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 100px;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-bottom: 32px;
-    }
-
-    .hero-badge span {
-      width: 6px;
-      height: 6px;
-      background: #22c55e;
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      font-size: 56px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
-    }
-
-    .hero h1 .gradient {
-      background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 48px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .hero-buttons .btn {
-      padding: 14px 28px;
-      font-size: 15px;
-    }
-
-    /* Comparison Section */
-    .comparison {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      max-width: 900px;
-      margin: 0 auto;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
+      height: 100vh;
+      width: 100%;
       overflow: hidden;
     }
 
-    @media (max-width: 640px) {
-      .comparison-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .comparison-card {
-      padding: 32px;
-    }
-
-    .comparison-card:first-child {
-      background: rgba(255, 255, 255, 0.02);
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    @media (max-width: 640px) {
-      .comparison-card:first-child {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-    }
-
-    .comparison-card h3 {
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-    }
-
-    .comparison-card.heyclaw h3 {
-      color: #a855f7;
-    }
-
-    .comparison-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .comparison-item:last-child {
-      border-bottom: none;
-    }
-
-    .comparison-item span:first-child {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
-    }
-
-    .comparison-item span:last-child {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .comparison-card.heyclaw .comparison-item span:last-child {
-      color: #22c55e;
-      font-weight: 600;
-    }
-
-    .comparison-item.total span {
-      font-weight: 600;
-      color: white;
-    }
-
-    .comparison-card.heyclaw .comparison-item.total span:last-child {
-      color: #22c55e;
-    }
-
-    /* Features */
-    .features {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .section-header {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto 64px;
-    }
-
-    .section-header h2 {
-      font-size: 36px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      letter-spacing: -1px;
-    }
-
-    .section-header p {
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .feature-card {
-      padding: 32px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      transition: all 0.3s;
-    }
-
-    .feature-card:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .feature-card p {
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* Pricing */
-    .pricing {
-      padding: 100px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 16px;
-      position: relative;
-    }
-
-    .pricing-card.popular {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(255, 255, 255, 0.15);
-    }
-
-    .popular-badge {
+    /* Title */
+    .stage-title {
       position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #a855f7, #6366f1);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .pricing-card h3 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .pricing-card .price {
-      font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -2px;
-    }
-
-    .pricing-card .price span {
-      font-size: 16px;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      will-change: transform, opacity;
+      user-select: none;
+      font-family: 'Vampiro One', cursive;
+      font-size: 60px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.5);
-      letter-spacing: 0;
+      color: var(--text-dark);
     }
 
-    .pricing-card .description {
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 32px;
-      font-size: 14px;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-
-    .pricing-features li {
-      padding: 10px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .pricing-features li:last-child {
-      border-bottom: none;
-    }
-
-    .pricing-features li::before {
-      content: "✓";
-      color: #22c55e;
-      font-weight: 600;
-    }
-
-    .pricing-card .btn {
-      width: 100%;
-      padding: 14px;
-    }
-
-    /* CTA */
-    .cta {
-      padding: 120px 24px;
-      text-align: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      position: relative;
-    }
-
-    .cta::before {
-      content: '';
+    /* Monsters */
+    .stage-monster {
       position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+      left: 0; top: 0;
+      will-change: transform, opacity;
       pointer-events: none;
     }
-
-    .cta-content {
-      position: relative;
-      z-index: 1;
+    .stage-monster img {
+      width: 100%;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
-    .cta h2 {
-      font-size: 40px;
+    /* Scroll hint */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+    }
+    .scroll-hint.visible { opacity: 0.4; }
+    .scroll-hint span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .scroll-hint svg {
+      width: 20px; height: 20px;
+      stroke: var(--text-dim);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ===== CTA Section ===== */
+    .scene-cta {
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .cta-content h2 {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(36px, 6vw, 56px);
       font-weight: 700;
       margin-bottom: 16px;
-      letter-spacing: -1px;
+      color: var(--text);
+      opacity: 0; transform: translateY(30px);
     }
-
-    .cta p {
+    .cta-content p {
       font-size: 16px;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--text-dim);
       margin-bottom: 40px;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 420px;
+      margin-left: auto; margin-right: auto;
+      opacity: 0; transform: translateY(20px);
+    }
+    .cta-content .btn { opacity: 0; transform: translateY(20px); }
+    .cta-monsters {
+      display: flex;
+      justify-content: center;
+      gap: clamp(30px, 6vw, 80px);
+      margin-top: 60px;
+    }
+    .cta-monster {
+      width: clamp(60px, 9vw, 95px);
+      opacity: 0; transform: translateY(40px);
+    }
+    .cta-monster img {
+      width: 100%; height: auto;
+      user-select: none; -webkit-user-drag: none;
     }
 
-    /* Footer */
+    .scene-cta.visible .cta-content h2 { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    .scene-cta.visible .cta-content p { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards; }
+    .scene-cta.visible .cta-content .btn { animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; }
+    .scene-cta.visible .cta-monster:nth-child(1) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards; }
+    .scene-cta.visible .cta-monster:nth-child(2) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s forwards; }
+    .scene-cta.visible .cta-monster:nth-child(3) { animation: bounceDrop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards; }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes bounceDrop {
+      0% { transform: translateY(40px); opacity: 0; }
+      50% { opacity: 1; }
+      70% { transform: translateY(-15px); }
+      85% { transform: translateY(4px); }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ===== Footer ===== */
     footer {
       padding: 40px 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid var(--border);
     }
-
     .footer-content {
       max-width: 1100px;
       margin: 0 auto;
@@ -498,233 +213,82 @@
       flex-wrap: wrap;
       gap: 24px;
     }
-
     .footer-logo {
-      font-size: 18px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
     }
-
-    .footer-links {
-      display: flex;
-      gap: 32px;
-    }
-
+    .footer-links { display: flex; gap: 32px; }
     .footer-links a {
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 13px;
       transition: color 0.2s;
     }
+    .footer-links a:hover { color: var(--text); }
 
-    .footer-links a:hover {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
+    /* ===== Responsive ===== */
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 36px;
-        letter-spacing: -1px;
-      }
+      nav { padding: 12px 16px; }
+      .logo { font-size: 24px; }
+      .btn { padding: 8px 14px; font-size: 12px; }
+    }
+    @media (max-width: 480px) {
+      .cta-monster { width: 70px; }
+    }
 
-      .hero p {
-        font-size: 16px;
-      }
-
-      .nav-links a:not(.btn) {
-        display: none;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pricing-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-header h2,
-      .cta h2 {
-        font-size: 28px;
+    /* ===== Reduced Motion ===== */
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint { display: none; }
+      .scene-cta .cta-content h2,
+      .scene-cta .cta-content p,
+      .scene-cta .cta-content .btn,
+      .scene-cta .cta-monster {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
       }
     }
   </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
     <nav>
       <a href="/" class="logo">heyclaw</a>
-      <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#" class="btn btn-primary">Get Started</a>
-      </div>
+      <a href="#" class="btn btn-primary">Get Started</a>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span></span>
-        AI-Powered Instagram Analytics
-      </div>
-      <h1>Grow your Instagram with <span class="gradient">AI insights</span></h1>
-      <p>Analyze reels performance, discover similar accounts, and get daily actionable reports to grow your audience.</p>
-      <div class="hero-buttons">
-        <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
-        <a href="#features" class="btn btn-secondary">See Features</a>
-      </div>
-    </div>
-  </section>
+  <!-- Intro Animation Stage -->
+  <section class="intro-stage" id="stage">
+    <div class="stage-title" id="stageTitle">heyclaw</div>
 
-  <!-- Comparison -->
-  <section class="comparison">
-    <div class="section-header">
-      <h2>Traditional vs heyclaw</h2>
-      <p>Stop wasting hours on manual research. Let AI do the heavy lifting.</p>
-    </div>
-    <div class="comparison-grid">
-      <div class="comparison-card">
-        <h3>Without heyclaw</h3>
-        <div class="comparison-item">
-          <span>Analyze competitor accounts</span>
-          <span>30+ min</span>
-        </div>
-        <div class="comparison-item">
-          <span>Track reel performance</span>
-          <span>20+ min</span>
-        </div>
-        <div class="comparison-item">
-          <span>Find trending content ideas</span>
-          <span>45+ min</span>
-        </div>
-        <div class="comparison-item">
-          <span>Identify growth opportunities</span>
-          <span>60+ min</span>
-        </div>
-        <div class="comparison-item total">
-          <span>Total daily time</span>
-          <span>2+ hours</span>
-        </div>
-      </div>
-      <div class="comparison-card heyclaw">
-        <h3>With heyclaw</h3>
-        <div class="comparison-item">
-          <span>Analyze competitor accounts</span>
-          <span>Instant</span>
-        </div>
-        <div class="comparison-item">
-          <span>Track reel performance</span>
-          <span>Instant</span>
-        </div>
-        <div class="comparison-item">
-          <span>Find trending content ideas</span>
-          <span>Instant</span>
-        </div>
-        <div class="comparison-item">
-          <span>Identify growth opportunities</span>
-          <span>Instant</span>
-        </div>
-        <div class="comparison-item total">
-          <span>Total daily time</span>
-          <span>&lt;5 min</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    <div class="stage-monster" id="monsterBlack"><img src="assets/monster-black.png" alt="" draggable="false"></div>
+    <div class="stage-monster" id="monsterRed"><img src="assets/monster-red.png" alt="" draggable="false"></div>
+    <div class="stage-monster" id="monsterBlue"><img src="assets/monster-blue.png" alt="" draggable="false"></div>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <div class="section-header">
-      <h2>Everything you need to grow</h2>
-      <p>Powerful AI tools designed specifically for Instagram content creators.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Reels Analytics</h3>
-        <p>Get detailed performance insights for your reels. Understand what works and optimize your content strategy.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <h3>Account Discovery</h3>
-        <p>Find similar accounts in your niche for collaboration opportunities and content inspiration.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <h3>Daily TOP 2 Report</h3>
-        <p>Receive daily reports highlighting your best performing content with actionable recommendations.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💬</div>
-        <h3>AI Chat Assistant</h3>
-        <p>Ask questions about your performance and get instant AI-powered insights and recommendations.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Growth Strategies</h3>
-        <p>Get personalized growth strategies based on your content performance and audience engagement.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Real-time Data</h3>
-        <p>Access up-to-date Instagram data to make informed decisions about your content.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing -->
-  <section class="pricing" id="pricing">
-    <div class="section-header">
-      <h2>Simple pricing</h2>
-      <p>Choose the plan that fits your needs. Cancel anytime.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <h3>Basic</h3>
-        <div class="price">$9<span>/month</span></div>
-        <p class="description">Perfect for individual creators</p>
-        <ul class="pricing-features">
-          <li>Monitor up to 10 accounts</li>
-          <li>Daily Reels TOP 2 report</li>
-          <li>Basic AI insights</li>
-          <li>Email support</li>
-        </ul>
-        <a href="#" class="btn btn-secondary">Get Started</a>
-      </div>
-      <div class="pricing-card popular">
-        <span class="popular-badge">Popular</span>
-        <h3>Pro</h3>
-        <div class="price">$19<span>/month</span></div>
-        <p class="description">For serious content creators</p>
-        <ul class="pricing-features">
-          <li>Monitor up to 100 accounts</li>
-          <li>Daily Reels TOP 2 report</li>
-          <li>Advanced AI analysis</li>
-          <li>Account discovery agent</li>
-          <li>Priority support</li>
-          <li>Export reports</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Get Started</a>
-      </div>
+    <div class="scroll-hint" id="scrollHint">
+      <span>Scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta">
+  <section class="scene-cta" id="cta">
     <div class="cta-content">
       <h2>Ready to grow your Instagram?</h2>
       <p>Join creators using heyclaw to grow their audience with AI-powered insights.</p>
-      <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+      <a href="#" class="btn btn-primary" style="padding: 16px 36px; font-size: 16px;">Start Free Trial</a>
+    </div>
+    <div class="cta-monsters">
+      <div class="cta-monster"><img src="assets/monster-black.png" alt="" draggable="false"></div>
+      <div class="cta-monster"><img src="assets/monster-red.png" alt="" draggable="false"></div>
+      <div class="cta-monster"><img src="assets/monster-blue.png" alt="" draggable="false"></div>
     </div>
   </section>
 
@@ -739,5 +303,209 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    (function() {
+      'use strict';
+
+      var titleEl = document.getElementById('stageTitle');
+      var els = {
+        black: document.getElementById('monsterBlack'),
+        red: document.getElementById('monsterRed'),
+        blue: document.getElementById('monsterBlue'),
+      };
+      var scrollHint = document.getElementById('scrollHint');
+
+      // ---- Viewport-aware helpers ----
+      function peekY(monsterVw, fraction) {
+        var vw = window.innerWidth, vh = window.innerHeight;
+        var px = (monsterVw / 100) * vw;
+        return ((vh - px * fraction + px / 2) / vh) * 100;
+      }
+
+      var HIDDEN = 130;
+      var s = window.innerWidth < 768 ? 1.6 : 1;
+
+      // ---- Title timeline (always centered, with bump) ----
+      // Title stays at center (50vw, 50vh via CSS), we only animate opacity + scale
+      var titleTimeline = [
+        { t: 0,    opacity: 0, scale: 0.85 },
+        { t: 250,  opacity: 1, scale: 1.12 },     // fade in + bump up
+        { t: 450,  opacity: 1, scale: 1.0 },      // settle back
+        { t: 3500, opacity: 1, scale: 1.0 },      // hold
+      ];
+
+      // ---- Scene 3 font switching (discrete, not interpolated) ----
+      // Cycle: Urbanist(4f/133ms) → Pacifico(6f/200ms) → Bungee Shade(4f/133ms) = 466ms per loop
+      // Repeat 3 times, then back to Vampiro One
+      var fontCycle = [
+        { dur: 133, font: "'Urbanist', sans-serif", weight: 900 },
+        { dur: 200, font: "'Pacifico', cursive", weight: 400 },
+        { dur: 133, font: "'Bungee Shade', cursive", weight: 400 },
+      ];
+      var SCENE3_START = 1333;
+      var CYCLE_DUR = 133 + 200 + 133; // 466ms per loop
+      var SCENE3_REPEATS = 3;
+      var SCENE3_END = SCENE3_START + CYCLE_DUR * SCENE3_REPEATS; // 2731ms
+
+      // Build fontSwitches array: 3 full cycles + final Vampiro One
+      var fontSwitches = [];
+      for (var rep = 0; rep < SCENE3_REPEATS; rep++) {
+        var offset = SCENE3_START + rep * CYCLE_DUR;
+        var cumulative = 0;
+        for (var f = 0; f < fontCycle.length; f++) {
+          fontSwitches.push({ t: offset + cumulative, font: fontCycle[f].font, weight: fontCycle[f].weight });
+          cumulative += fontCycle[f].dur;
+        }
+      }
+      fontSwitches.push({ t: SCENE3_END, font: "'Vampiro One', cursive", weight: 400 });
+      var currentFontIndex = -1;
+
+      // ---- Monster timelines ----
+      var blackPeek = peekY(15 * s, 0.55);
+      var redPeek = peekY(18 * s, 0.55);
+      var bluePeek = peekY(16 * s, 0.55);
+
+      var monsterTimeline = {
+        black: [
+          { t: 0,    opacity: 0, x: 50, y: HIDDEN, w: 15*s, orbit: 0 },
+          { t: 180,  opacity: 1, x: 50, y: blackPeek, w: 15*s, orbit: 0 },
+          { t: 380,  opacity: 1, x: 50, y: blackPeek, w: 15*s, orbit: 0 },
+          { t: 600,  opacity: 0, x: 50, y: HIDDEN, w: 15*s, orbit: 0 },
+          { t: 2000, opacity: 0, x: 75, y: HIDDEN, w: 11*s, orbit: 0 },
+          { t: 2200, opacity: 1, x: 75, y: 82, w: 11*s, orbit: 2 },
+          { t: 2500, opacity: 1, x: 78, y: 68, w: 13*s, orbit: 5 },
+          { t: 2800, opacity: 0.6, x: 95, y: 95, w: 13*s, orbit: 10 },
+          { t: 3000, opacity: 0, x: 115, y: 115, w: 13*s, orbit: 16 },
+        ],
+        red: [
+          { t: 0,    opacity: 0, x: 50, y: HIDDEN, w: 18*s, orbit: 0 },
+          { t: 667,  opacity: 0, x: 50, y: HIDDEN, w: 18*s, orbit: 0 },
+          { t: 900,  opacity: 1, x: 50, y: redPeek, w: 18*s, orbit: 0 },
+          { t: 1280, opacity: 1, x: 50, y: redPeek, w: 18*s, orbit: 0 },
+          { t: 1650, opacity: 1, x: 22, y: 35, w: 18*s, orbit: 3 },
+          { t: 2100, opacity: 1, x: 38, y: 20, w: 16*s, orbit: 5 },
+          { t: 2500, opacity: 1, x: 68, y: 15, w: 14*s, orbit: 7 },
+          { t: 2800, opacity: 0.6, x: 85, y: -10, w: 14*s, orbit: 12 },
+          { t: 3000, opacity: 0, x: 105, y: -30, w: 14*s, orbit: 18 },
+        ],
+        blue: [
+          { t: 0,    opacity: 0, x: 80, y: HIDDEN, w: 16*s, orbit: 0 },
+          { t: 1333, opacity: 0, x: 80, y: HIDDEN, w: 16*s, orbit: 0 },
+          { t: 1700, opacity: 1, x: 80, y: bluePeek, w: 16*s, orbit: 0 },
+          { t: 2100, opacity: 1, x: 45, y: 70, w: 16*s, orbit: 4 },
+          { t: 2500, opacity: 1, x: 20, y: 50, w: 14*s, orbit: 6 },
+          { t: 2800, opacity: 0.6, x: -10, y: 55, w: 14*s, orbit: 12 },
+          { t: 3000, opacity: 0, x: -30, y: 60, w: 14*s, orbit: 18 },
+        ],
+      };
+
+      // Orbital phase offsets (120° apart)
+      var orbitPhase = { red: 0, blue: (2 * Math.PI) / 3, black: (4 * Math.PI) / 3 };
+      var ORBIT_SPEED = 0.004;
+
+      // ---- Interpolation ----
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function easeInOut(t) {
+        return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      }
+
+      function getKeyframe(kfs, time) {
+        if (time <= kfs[0].t) return Object.assign({}, kfs[0]);
+        if (time >= kfs[kfs.length - 1].t) return Object.assign({}, kfs[kfs.length - 1]);
+        var i = 0;
+        while (i < kfs.length - 1 && kfs[i + 1].t <= time) i++;
+        var from = kfs[i], to = kfs[i + 1];
+        var raw = (time - from.t) / (to.t - from.t);
+        var t = easeInOut(raw);
+        var result = {};
+        for (var key in from) {
+          if (key === 't') continue;
+          result[key] = lerp(from[key], to[key], t);
+        }
+        return result;
+      }
+
+      // ---- Apply to DOM ----
+      function applyTitle(state, elapsed) {
+        titleEl.style.opacity = state.opacity;
+        titleEl.style.transform = 'translate(-50%, -50%) scale(' + state.scale + ')';
+
+        // Discrete font switching during Scene 3
+        var newFontIndex = -1;
+        for (var i = fontSwitches.length - 1; i >= 0; i--) {
+          if (elapsed >= fontSwitches[i].t) { newFontIndex = i; break; }
+        }
+        if (newFontIndex !== currentFontIndex) {
+          currentFontIndex = newFontIndex;
+          if (newFontIndex >= 0) {
+            titleEl.style.fontFamily = fontSwitches[newFontIndex].font;
+            titleEl.style.fontWeight = fontSwitches[newFontIndex].weight;
+          } else {
+            titleEl.style.fontFamily = "'Vampiro One', cursive";
+            titleEl.style.fontWeight = 400;
+          }
+        }
+      }
+
+      function applyMonster(el, state, phase, elapsed) {
+        var angle = elapsed * ORBIT_SPEED + phase;
+        var orbitR = state.orbit || 0;
+        var ox = orbitR * Math.cos(angle);
+        var oy = orbitR * Math.sin(angle);
+        el.style.opacity = state.opacity;
+        el.style.width = state.w + 'vw';
+        el.style.transform = 'translate(calc(' + (state.x + ox) + 'vw - 50%), calc(' + (state.y + oy) + 'vh - 50%))';
+      }
+
+      // ---- Animation Loop ----
+      var startTime = null;
+      var DURATION = 3500;
+      var done = false;
+
+      function tick(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var elapsed = timestamp - startTime;
+
+        // Title (always centered, with bump + font switch)
+        applyTitle(getKeyframe(titleTimeline, elapsed), elapsed);
+
+        // Monsters
+        applyMonster(els.black, getKeyframe(monsterTimeline.black, elapsed), orbitPhase.black, elapsed);
+        applyMonster(els.red, getKeyframe(monsterTimeline.red, elapsed), orbitPhase.red, elapsed);
+        applyMonster(els.blue, getKeyframe(monsterTimeline.blue, elapsed), orbitPhase.blue, elapsed);
+
+        if (elapsed > 3200 && !done) {
+          scrollHint.classList.add('visible');
+          done = true;
+        }
+
+        if (elapsed < DURATION) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      // Initialize hidden
+      titleEl.style.opacity = '0';
+      Object.keys(els).forEach(function(k) { els[k].style.opacity = '0'; });
+
+      // Start animation
+      requestAnimationFrame(tick);
+
+      // ---- CTA Intersection Observer ----
+      var ctaSection = document.getElementById('cta');
+      var ctaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            ctaObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      ctaObserver.observe(ctaSection);
+
+    })();
+  </script>
 </body>
 </html>
