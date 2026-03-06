@@ -82,7 +82,7 @@
         transform: translateX(-50%);
         width: 18vw;
         max-width: 260px;
-        z-index: 35;
+        z-index: 20;
         opacity: 0;
         pointer-events: none;
         will-change: opacity, transform;
@@ -1164,7 +1164,84 @@
         object-fit: contain;
       }
 
+      /* ===== Language Selector ===== */
+      .lang-selector {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 101;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .lang-selector.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .lang-btn {
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        color: var(--text-dark);
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 6px 12px;
+        cursor: pointer;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: border-color 0.2s ease;
+      }
+      .lang-btn:hover {
+        border-color: #aaa;
+      }
+      .lang-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 4px;
+        background: #fff;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      }
+      .lang-dropdown.open {
+        display: block;
+      }
+      .lang-dropdown button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        padding: 8px 16px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        white-space: nowrap;
+        color: var(--text-dark);
+      }
+      .lang-dropdown button:hover {
+        background: #f5f3f0;
+      }
+      .lang-dropdown button.active {
+        font-weight: 700;
+      }
+
       /* ===== Responsive ===== */
+      @media (max-width: 1024px) {
+        .features-heading,
+        .features-card,
+        .build-heading,
+        .build-cards,
+        .pricing-heading,
+        .pricing-subtitle,
+        .pricing-cards {
+          max-width: 100%;
+        }
+      }
       @media (max-width: 768px) {
         .stage-subtitle {
           font-size: 16px;
@@ -1197,9 +1274,33 @@
         }
         .build-cards {
           flex-direction: column;
+          max-width: 100%;
         }
         .build-section {
           padding: 60px 20px 80px;
+        }
+        .build-heading {
+          max-width: 100%;
+          font-size: clamp(22px, 5vw, 28px);
+        }
+        .build-card-label {
+          font-size: 20px;
+        }
+        .build-card {
+          padding: 20px 16px;
+        }
+        .build-row {
+          gap: 8px;
+        }
+        .build-row-right {
+          flex-shrink: 0;
+          white-space: nowrap;
+        }
+        .build-row-left {
+          font-size: 12px;
+        }
+        .heyclaw-big {
+          font-size: clamp(20px, 5vw, 26px);
         }
         .pricing-section {
           padding: 0 20px;
@@ -1272,19 +1373,25 @@
     </style>
   </head>
   <body>
+    <!-- Language Selector -->
+    <div class="lang-selector" id="langSelector">
+      <button class="lang-btn" id="langBtn">EN &#9662;</button>
+      <div class="lang-dropdown" id="langDropdown"></div>
+    </div>
+
     <!-- Intro Animation Stage -->
     <section class="intro-stage" id="stage">
       <div class="bg-top-banner" id="bgTop"><img src="assets/bg_top.png" alt="" draggable="false" /></div>
 
-      <div class="stage-subtitle" id="stageSubtitle">Your AI Agent that brings real living trends from Instagram</div>
+      <div class="stage-subtitle" id="stageSubtitle" data-i18n="subtitle">Your AI Agent that brings real living trends from Instagram</div>
       <div class="stage-title" id="stageTitle">heyclaw</div>
-      <a href="https://heyclaw.co/releases/Heyclaw_0.1.0_aarch64.dmg" class="download-btn" id="downloadBtn">🍎 Download for Mac</a>
+      <a href="https://heyclaw.co/releases/Heyclaw_0.1.0_aarch64.dmg" class="download-btn" id="downloadBtn" data-i18n="download_mac">🍎 Download for Mac</a>
       <div class="intro-monster" id="introMonster"><img src="assets/monster-red.png" alt="" draggable="false" /></div>
     </section>
 
     <!-- Trust Section -->
     <section class="trust-section">
-      <p class="trust-text">Heyclaw is built on OpenClaw — Trusted by teams at</p>
+      <p class="trust-text" data-i18n="trust_text">Heyclaw is built on OpenClaw — Trusted by teams at</p>
       <div class="trust-logos">
         <span class="trust-logo">Google</span>
         <span class="trust-logo"
@@ -1314,24 +1421,24 @@
 
     <!-- Features Section -->
     <section class="features-section" id="features">
-      <h2 class="features-heading">Meet your 24/7 AI Marketing Team.</h2>
+      <h2 class="features-heading" data-i18n="features_heading">Meet your 24/7 AI Marketing Team.</h2>
       <div class="features-card">
         <!-- Sidebar -->
         <div class="features-sidebar">
           <div class="sidebar-item active" data-feature="trend">
             <div class="sidebar-icon"><img src="assets/monster-red.png" alt="" /></div>
-            <span class="sidebar-label">Daily Trend Tracker</span>
+            <span class="sidebar-label" data-i18n="sidebar_trend">Daily Trend Tracker</span>
           </div>
-          <div class="sidebar-desc active" id="desc-trend">
+          <div class="sidebar-desc active" id="desc-trend" data-i18n="desc_trend">
             Track trends in your niche every day. Heyclaw delivers high-performing short-form videos based on your
             social media profile.
           </div>
 
           <div class="sidebar-item" data-feature="scout">
             <div class="sidebar-icon"><img src="assets/monster-blue.png" alt="" /></div>
-            <span class="sidebar-label">Reference Scouter</span>
+            <span class="sidebar-label" data-i18n="sidebar_scout">Reference Scouter</span>
           </div>
-          <div class="sidebar-desc" id="desc-scout">
+          <div class="sidebar-desc" id="desc-scout" data-i18n="desc_scout">
             Discover accounts worth following in your niche. Heyclaw finds creators tailored to your niche and
             statistically analyzes their viral strategies so you can replicate what works.
           </div>
@@ -1340,14 +1447,14 @@
         <!-- Content: Daily Trend Tracker -->
         <div class="features-content active" id="content-trend">
           <div class="feat-msg-wrapper">
-            <div class="feat-msg">
+            <div class="feat-msg" data-i18n-html="feat_trend_msg1">
               Good morning Lucia!<br />
               Here're the top-performing Reels trending in your niche.
             </div>
             <div class="feat-msg-time">9:00 AM</div>
           </div>
           <div class="feat-msg-wrapper">
-            <div class="feat-msg">
+            <div class="feat-msg" data-i18n-html="feat_trend_msg2">
               📊 <strong>Instagram Reels Performance Analysis Report</strong><br />
               📅 Analysis Period: Feb 21, 2026 – Mar 6, 2026<br />
               🔍 Scope: 190 accounts analyzed | Filtered for reels with 100K+ views
@@ -1355,7 +1462,7 @@
             <div class="feat-msg-time">9:00 AM</div>
           </div>
           <div class="feat-msg-wrapper">
-            <div class="feat-msg">
+            <div class="feat-msg" data-i18n-html="feat_trend_msg3">
               <strong>[@askcatgpt]</strong><br />
               URL: https://www.instagram.com/p/DUyKSQnCMiJ/<br />
               Views: 1,504,235 / Likes: 12,812 / Comments: 353 / Reposts: 187 /<br />
@@ -1366,7 +1473,7 @@
             </div>
             <div class="feat-msg-time">9:00 AM</div>
           </div>
-          <div class="feat-view-all">View All <span>›</span></div>
+          <div class="feat-view-all"><span data-i18n="feat_view_all">View All</span> <span>›</span></div>
           <div class="feat-msg-wrapper">
             <div class="feat-thumbs">
               <div class="feat-thumb">
@@ -1389,14 +1496,14 @@
         <!-- Content: Reference Scouter -->
         <div class="features-content" id="content-scout">
           <div class="feat-msg-wrapper">
-            <div class="feat-msg">
+            <div class="feat-msg" data-i18n-html="feat_scout_msg1">
               Let me find some fresh accounts for you!<br />
               I've look for creators in AI &amp; Tech that you're not following yet.
             </div>
             <div class="feat-msg-time">9:01 AM</div>
           </div>
           <div class="feat-msg-wrapper">
-            <div class="feat-msg">
+            <div class="feat-msg" data-i18n-html="feat_scout_msg2">
               📊 <strong>Instagram Reference Scout Report</strong><br />
               📅 Analysis Period: Mar 6, 2026
             </div>
@@ -1404,7 +1511,7 @@
           </div>
           <div class="feat-msg-wrapper">
             <div class="feat-accounts">
-              <div class="feat-accounts-title">Accounts you might like</div>
+              <div class="feat-accounts-title" data-i18n="feat_accounts_title">Accounts you might like</div>
               <div class="feat-account-row">
                 <div
                   class="feat-account-avatar"
@@ -1515,7 +1622,7 @@
             <div class="feat-msg-time">9:01 AM</div>
           </div>
           <div class="feat-msg-wrapper user-wrapper">
-            <div class="feat-msg-user">Tell me more about Andy Han.<br />How did he go viral?</div>
+            <div class="feat-msg-user" data-i18n-html="feat_scout_question">Tell me more about Andy Han.<br />How did he go viral?</div>
           </div>
         </div>
       </div>
@@ -1523,61 +1630,61 @@
 
     <!-- Build Comparison Section -->
     <section class="build-section" id="buildSection">
-      <h2 class="build-heading">Built with OpenClaw. Easiest deployment for non-tech.</h2>
+      <h2 class="build-heading" data-i18n="build_heading">Built with OpenClaw. Easiest deployment for non-tech.</h2>
       <div class="build-cards">
         <div class="build-card-wrapper">
-          <div class="build-card-label">Manual Build</div>
+          <div class="build-card-label" data-i18n="build_manual">Manual Build</div>
           <div class="build-card manual">
             <div class="build-row">
-              <span class="build-row-left">Creating SSH keys and storing securely</span
+              <span class="build-row-left" data-i18n="build_row1">Creating SSH keys and storing securely</span
               ><span class="build-row-right">10 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Install latest Node.js and NPM with brew through terminal</span
+              <span class="build-row-left" data-i18n="build_row2">Install latest Node.js and NPM with brew through terminal</span
               ><span class="build-row-right">5 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Install OpenClaw through terminal</span
+              <span class="build-row-left" data-i18n="build_row3">Install OpenClaw through terminal</span
               ><span class="build-row-right">7 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Setting up OpenClaw through terminal</span
+              <span class="build-row-left" data-i18n="build_row4">Setting up OpenClaw through terminal</span
               ><span class="build-row-right">20 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Select AI models and define branching logic</span
+              <span class="build-row-left" data-i18n="build_row5">Select AI models and define branching logic</span
               ><span class="build-row-right">16 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Connect Social Media trackers</span
+              <span class="build-row-left" data-i18n="build_row6">Connect Social Media trackers</span
               ><span class="build-row-right">12 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Pairing with Telegram</span><span class="build-row-right">4 min</span>
+              <span class="build-row-left" data-i18n="build_row7">Pairing with Telegram</span><span class="build-row-right">4 min</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Setting up stable cron job agents</span
+              <span class="build-row-left" data-i18n="build_row8">Setting up stable cron job agents</span
               ><span class="build-row-right">20 min</span>
             </div>
             <div class="build-plus">+</div>
             <div class="build-row">
-              <span class="build-row-left">Pro-tier AI Model Subscriptions</span
+              <span class="build-row-left" data-i18n="build_cost1">Pro-tier AI Model Subscriptions</span
               ><span class="build-row-right">$200</span>
             </div>
             <div class="build-row">
-              <span class="build-row-left">Social Media Tracking APIs</span><span class="build-row-right">$130</span>
+              <span class="build-row-left" data-i18n="build_cost2">Social Media Tracking APIs</span><span class="build-row-right">$130</span>
             </div>
             <div class="build-divider"></div>
             <div class="build-total">
-              <span class="build-total-left">Total</span><span class="build-total-right">100 min + $330</span>
+              <span class="build-total-left" data-i18n="build_total">Total</span><span class="build-total-right">100 min + $330</span>
             </div>
           </div>
         </div>
         <div class="build-card-wrapper">
           <div class="build-card-label vampiro">heyclaw</div>
           <div class="build-card heyclaw-card">
-            <div class="heyclaw-big">< 1 min,<br />Starts with $12.</div>
-            <div class="heyclaw-body">
+            <div class="heyclaw-big" data-i18n-html="heyclaw_big">< 1 min,<br />Starts with $12.</div>
+            <div class="heyclaw-body" data-i18n-html="heyclaw_body">
               <span class="v">heyclaw</span> builds it under 1 min.<br />
               <span class="v">heyclaw</span> doesn't require you for additional API or MCP.<br />
               <span class="v">heyclaw</span> sets up OpenClaw on your local, unlocking its full potential —
@@ -1590,25 +1697,25 @@
 
     <!-- Pricing Section -->
     <section class="pricing-section" id="pricing">
-      <h2 class="pricing-heading">Pricing</h2>
-      <p class="pricing-subtitle" id="pricingToggle">
+      <h2 class="pricing-heading" data-i18n="pricing_heading">Pricing</h2>
+      <p class="pricing-subtitle" id="pricingToggle" data-i18n-html="pricing_subtitle">
         Already subscribed for ChatGPT / Claude / Gemini?
         <span class="click-link" id="pricingClickLink">Click here</span>
       </p>
       <div class="pricing-cards">
         <div class="pricing-card-wrapper">
-          <div class="pricing-card-label">Basic</div>
+          <div class="pricing-card-label" data-i18n="pricing_basic">Basic</div>
           <div class="pricing-card basic">
-            <p class="pricing-desc">
+            <p class="pricing-desc" data-i18n="pricing_desc_basic">
               Start exploring with a basic OpenClaw setup and Daily Trend Tracker. Perfect for beginners.
             </p>
             <div class="pricing-divider"></div>
             <div class="pricing-price">
-              $<span class="price-number" id="priceBasic">32</span><span class="price-unit">/mo</span>
+              $<span class="price-number" id="priceBasic">32</span><span class="price-unit" data-i18n="pricing_unit">/mo</span>
             </div>
             <div class="pricing-divider"></div>
-            <ul class="pricing-features">
-              <li>
+            <ul class="pricing-features" id="basicFeatures">
+              <li data-i18n-feat="pricing_feat_basic_1">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1619,9 +1726,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Pro Level OpenClaw Setup including Security Setup
+                <span>Pro Level OpenClaw Setup including Security Setup</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_basic_2">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1632,9 +1739,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Plus Level AI Models (Open AI / Claude / Gemini / Kimi)
+                <span>Plus Level AI Models (Open AI / Claude / Gemini / Kimi)</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_basic_3">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1645,9 +1752,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Daily Trend Tracker Agent
+                <span>Daily Trend Tracker Agent</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_basic_4">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1658,25 +1765,25 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                AI Agent for On-demand Social Media Research
+                <span>AI Agent for On-demand Social Media Research</span>
               </li>
             </ul>
-            <button class="pricing-btn">
-              <img src="assets/monster-black.png" alt="" class="pricing-btn-icon" /> Get Started
+            <button class="pricing-btn" data-i18n-btn="pricing_btn">
+              <img src="assets/monster-black.png" alt="" class="pricing-btn-icon" /> <span>Get Started</span>
             </button>
           </div>
         </div>
         <div class="pricing-card-wrapper">
-          <div class="pricing-card-label pro-label">Pro</div>
+          <div class="pricing-card-label pro-label" data-i18n="pricing_pro">Pro</div>
           <div class="pricing-card pro">
-            <p class="pricing-desc">MAX Intelligence. Perfect AI Marketing Teammates.</p>
+            <p class="pricing-desc" data-i18n="pricing_desc_pro">MAX Intelligence. Perfect AI Marketing Teammates.</p>
             <div class="pricing-divider"></div>
             <div class="pricing-price">
-              $<span class="price-number" id="pricePro">65</span><span class="price-unit">/mo</span>
+              $<span class="price-number" id="pricePro">65</span><span class="price-unit" data-i18n="pricing_unit">/mo</span>
             </div>
             <div class="pricing-divider"></div>
-            <ul class="pricing-features">
-              <li>
+            <ul class="pricing-features" id="proFeatures">
+              <li data-i18n-feat="pricing_feat_pro_1">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1687,9 +1794,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Pro Level OpenClaw Setup including Security Setup
+                <span>Pro Level OpenClaw Setup including Security Setup</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_pro_2">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1700,9 +1807,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                MAX Level AI Models <strong>(Claude)</strong>
+                <span>MAX Level AI Models <strong>(Claude)</strong></span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_pro_3">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1713,9 +1820,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Daily Trend Tracker Agent
+                <span>Daily Trend Tracker Agent</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_pro_4">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1726,9 +1833,9 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                Reference Scouter Agent
+                <span>Reference Scouter Agent</span>
               </li>
-              <li>
+              <li data-i18n-feat="pricing_feat_pro_5">
                 <span class="pricing-check"
                   ><svg viewBox="0 0 24 24" fill="none">
                     <path
@@ -1739,11 +1846,11 @@
                       stroke-linejoin="round"
                     /></svg
                 ></span>
-                AI Agent for On-demand Social Media Research [UNLIMITED]
+                <span>AI Agent for On-demand Social Media Research [UNLIMITED]</span>
               </li>
             </ul>
-            <button class="pricing-btn pro-btn">
-              <img src="assets/monster-red.png" alt="" class="pricing-btn-icon" /> Get Started
+            <button class="pricing-btn pro-btn" data-i18n-btn="pricing_btn">
+              <img src="assets/monster-red.png" alt="" class="pricing-btn-icon" /> <span>Get Started</span>
             </button>
           </div>
         </div>
@@ -1785,37 +1892,136 @@
         </div>
         <div class="footer-columns">
           <div class="footer-col">
-            <h4>Product</h4>
+            <h4 data-i18n="footer_product">Product</h4>
             <ul>
-              <li><a href="#" data-scroll-top>Heyclaw</a></li>
-              <li><a href="#features" data-scroll-to="features">Features</a></li>
-              <li><a href="#pricing" data-scroll-to="pricing">Pricing</a></li>
+              <li><a href="#" data-scroll-top data-i18n="footer_heyclaw">Heyclaw</a></li>
+              <li><a href="#features" data-scroll-to="features" data-i18n="footer_features">Features</a></li>
+              <li><a href="#pricing" data-scroll-to="pricing" data-i18n="footer_pricing">Pricing</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Terms</h4>
+            <h4 data-i18n="footer_terms_title">Terms</h4>
             <ul>
-              <li><a href="terms-of-use.html">Terms of Use</a></li>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-use.html" data-i18n="footer_terms">Terms of Use</a></li>
+              <li><a href="privacy-policy.html" data-i18n="footer_privacy">Privacy Policy</a></li>
             </ul>
           </div>
           <div class="footer-col">
-            <h4>Support</h4>
+            <h4 data-i18n="footer_support_title">Support</h4>
             <ul>
-              <li><a href="mailto:lucia@morphis.app">Contact Support</a></li>
+              <li><a href="mailto:lucia@morphis.app" data-i18n="footer_contact">Contact Support</a></li>
             </ul>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
         <p class="footer-credit">Built by <a href="https://www.instagram.com/lucia.w0o/" target="_blank" rel="noopener"><strong>Lucia Woo</strong></a> &amp; <a href="https://www.instagram.com/withonelee/" target="_blank" rel="noopener"><strong>One Lee</strong></a></p>
-        <a class="footer-download-btn" href="https://heyclaw.co/releases/Heyclaw_0.1.0_aarch64.dmg"> <img src="assets/monster-red.png" alt="" /> Download for free </a>
+        <a class="footer-download-btn" href="https://heyclaw.co/releases/Heyclaw_0.1.0_aarch64.dmg"> <img src="assets/monster-red.png" alt="" /> <span data-i18n="footer_download">Download for free</span> </a>
       </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script>
       (function () {
         "use strict";
+
+        // ---- i18n ----
+        var currentLang = localStorage.getItem("heyclaw-lang") || navigator.language.split("-")[0] || "en";
+        if (!TRANSLATIONS[currentLang]) currentLang = "en";
+
+        var langSelectorEl = document.getElementById("langSelector");
+        var langBtnEl = document.getElementById("langBtn");
+        var langDropdownEl = document.getElementById("langDropdown");
+
+        // Build dropdown buttons
+        Object.keys(LANG_NAMES).forEach(function (code) {
+          var btn = document.createElement("button");
+          btn.setAttribute("data-lang", code);
+          btn.textContent = LANG_NAMES[code];
+          if (code === currentLang) btn.classList.add("active");
+          btn.addEventListener("click", function () {
+            setLanguage(code);
+            langDropdownEl.classList.remove("open");
+          });
+          langDropdownEl.appendChild(btn);
+        });
+
+        langBtnEl.addEventListener("click", function (e) {
+          e.stopPropagation();
+          langDropdownEl.classList.toggle("open");
+        });
+        document.addEventListener("click", function () {
+          langDropdownEl.classList.remove("open");
+        });
+
+        function setLanguage(lang) {
+          if (!TRANSLATIONS[lang]) return;
+          currentLang = lang;
+          localStorage.setItem("heyclaw-lang", lang);
+          document.documentElement.lang = lang;
+          langBtnEl.textContent = LANG_LABELS[lang] + " \u25BE";
+
+          // Update dropdown active state
+          langDropdownEl.querySelectorAll("button").forEach(function (btn) {
+            btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+          });
+
+          var t = TRANSLATIONS[lang];
+
+          // Page meta
+          document.title = t.page_title;
+          var metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) metaDesc.setAttribute("content", t.meta_desc);
+
+          // data-i18n (textContent)
+          document.querySelectorAll("[data-i18n]").forEach(function (el) {
+            var key = el.getAttribute("data-i18n");
+            if (t[key] !== undefined) el.textContent = t[key];
+          });
+
+          // data-i18n-html (innerHTML)
+          document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+            var key = el.getAttribute("data-i18n-html");
+            if (t[key] !== undefined) el.innerHTML = t[key];
+          });
+
+          // data-i18n-feat (pricing feature items: update the text span, keep the SVG)
+          document.querySelectorAll("[data-i18n-feat]").forEach(function (li) {
+            var key = li.getAttribute("data-i18n-feat");
+            if (t[key] !== undefined) {
+              var textSpan = li.querySelector("span:not(.pricing-check)");
+              if (textSpan) textSpan.innerHTML = t[key];
+            }
+          });
+
+          // data-i18n-btn (button with icon + text span)
+          document.querySelectorAll("[data-i18n-btn]").forEach(function (btn) {
+            var key = btn.getAttribute("data-i18n-btn");
+            if (t[key] !== undefined) {
+              var textSpan = btn.querySelector("span");
+              if (textSpan) textSpan.textContent = t[key];
+            }
+          });
+
+          // Update pricing toggle text based on current state
+          updatePricingToggleText();
+        }
+
+        function updatePricingToggleText() {
+          var t = TRANSLATIONS[currentLang];
+          var pricingToggleEl = document.getElementById("pricingToggle");
+          if (pricingToggleEl && t) {
+            if (typeof isDiscounted !== "undefined" && isDiscounted) {
+              pricingToggleEl.innerHTML = t.pricing_subtitle_alt;
+            } else {
+              pricingToggleEl.innerHTML = t.pricing_subtitle;
+            }
+          }
+        }
+
+        // Apply initial language
+        var isDiscounted = false;
+        setLanguage(currentLang);
 
         var titleEl = document.getElementById("stageTitle");
         var bgTopEl = document.getElementById("bgTop");
@@ -2044,6 +2250,11 @@
             });
           }
 
+          // Show language selector early
+          if (elapsed >= 1500 && langSelectorEl) {
+            langSelectorEl.classList.add("visible");
+          }
+
           if (elapsed < DURATION) {
             requestAnimationFrame(tick);
           } else {
@@ -2083,12 +2294,14 @@
 
             // Subtitle: keep visible on scroll (no fade)
 
-            // Intro monster: disable transition for scroll-based transform
+            // Intro monster: convert to fixed and disable transition for scroll-based transform
+            var mRect = introMonsterEl.getBoundingClientRect();
+            introMonsterEl.style.position = "fixed";
+            introMonsterEl.style.bottom = "auto";
+            introMonsterEl.style.top = mRect.top + "px";
             introMonsterEl.style.transition = "none";
 
-            // Monster exit direction: diagonal bottom-left into social posts
             var vw = window.innerWidth;
-            var monsterStartX = vw * 0.5;
 
             // Fixed-position monsters (scroll-controlled)
             var redMonsterEl = document.getElementById("redMonster");
@@ -2110,7 +2323,7 @@
             var pricingClickLink = document.getElementById("pricingClickLink");
             var priceBasicEl = document.getElementById("priceBasic");
             var priceProEl = document.getElementById("pricePro");
-            var isDiscounted = false;
+            isDiscounted = false;
 
             function animatePrice(el, from, to, duration) {
               var startTime = null;
@@ -2127,18 +2340,17 @@
 
             if (pricingToggleEl && pricingClickLink) {
               pricingToggleEl.addEventListener("click", function () {
+                var t = TRANSLATIONS[currentLang];
                 if (!isDiscounted) {
                   isDiscounted = true;
                   animatePrice(priceBasicEl, 32, 12, 350);
                   animatePrice(priceProEl, 65, 25, 350);
-                  pricingToggleEl.innerHTML =
-                    'Use your own AI Chat credits <span class="click-link" id="pricingClickLink">Return</span>';
+                  pricingToggleEl.innerHTML = t.pricing_subtitle_alt;
                 } else {
                   isDiscounted = false;
                   animatePrice(priceBasicEl, 12, 32, 350);
                   animatePrice(priceProEl, 25, 65, 350);
-                  pricingToggleEl.innerHTML =
-                    'Already subscribed for ChatGPT / Claude / Gemini? <span class="click-link" id="pricingClickLink">Click here</span>';
+                  pricingToggleEl.innerHTML = t.pricing_subtitle;
                 }
               });
             }
@@ -2155,21 +2367,14 @@
                 var bgSlide = Math.min(scrollY / 300, 1);
                 bgTopEl.style.transform = "translateY(" + -bgSlide * 100 + "%)";
 
-                // Intro monster: shrink and move diagonally bottom-left into social posts
-                var monsterProgress = Math.min(scrollY / 300, 1);
-                var monsterScale = 1 - monsterProgress * 0.88;
-                var monsterMoveX = -monsterProgress * (vw * 0.35);
-                var monsterDy = monsterProgress * 150;
+                // Intro monster: move downward following social posts direction, disappear behind them (z-index 20 < fixed-post 25)
+                var vh = window.innerHeight;
+                var monsterProgress = Math.min(scrollY / 400, 1);
+                var monsterScale = 1 - monsterProgress * 0.55;
+                var monsterDy = monsterProgress * vh * 0.18;
                 introMonsterEl.style.transform =
-                  "translateX(" +
-                  monsterMoveX +
-                  "px) translateX(-50%) scale(" +
-                  monsterScale +
-                  ") translateY(" +
-                  monsterDy +
-                  "px)";
-                if (monsterProgress >= 0.92) introMonsterEl.style.opacity = "0";
-                else introMonsterEl.style.opacity = "1";
+                  "translateX(-50%) translateY(" + monsterDy + "px) scale(" + monsterScale + ")";
+                introMonsterEl.style.opacity = String(Math.max(0, 1 - monsterProgress * 1.4));
 
                 // Social posts: shift outward and downward, fade out
                 var postProgress = Math.min(scrollY / 400, 1);
