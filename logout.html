@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logging out...</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body style="background:#07080a;color:white;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">
+  <div id="msg">Logging out...</div>
+  <script>
+    const sb = window.supabase.createClient(
+      'https://xzedadfexwowxxpwlvkj.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6ZWRhZGZleHdvd3h4cHdsdmtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNjEzNjQsImV4cCI6MjA4NzczNzM2NH0.0Z9qlSCX_d-1iQOdU5TfOS-wIHO8SDIrVZXgXfhjkqk'
+    );
+    sb.auth.signOut().then(() => {
+      document.getElementById('msg').textContent = 'Logged out! Redirecting...';
+      setTimeout(() => window.location.href = '/checkout.html', 1000);
+    });
+  </script>
+</body>
+</html>
