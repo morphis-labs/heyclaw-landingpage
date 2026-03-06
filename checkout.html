@@ -477,16 +477,31 @@
       console.log('currentUser:', currentUser);
       console.log('selectedPlan:', selectedPlan);
 
-      // Save plan to Supabase
+      // Get instagram handle from localStorage (saved during app onboarding)
+      const instagramHandle = localStorage.getItem('heyclaw_instagram_id');
+      console.log('instagramHandle from localStorage:', instagramHandle);
+
+      // Save plan and instagram_handle to Supabase
       if (currentUser) {
         try {
-          const { data, error } = await supabaseClient.from('user_profiles').upsert({
+          const profileData = {
             id: currentUser.id,
             email: currentUser.email,
             plan: selectedPlan,
             onboarding_completed: true,
             updated_at: new Date().toISOString()
-          }, { onConflict: 'id' });
+          };
+
+          // Include instagram_handle if available
+          if (instagramHandle) {
+            profileData.instagram_handle = instagramHandle;
+            profileData.target_accounts = [instagramHandle];
+          }
+
+          const { data, error } = await supabaseClient.from('user_profiles').upsert(
+            profileData,
+            { onConflict: 'id' }
+          );
 
           if (error) {
             console.error('Supabase error:', error);
@@ -502,8 +517,22 @@
         console.error('No currentUser - cannot save to Supabase');
       }
 
-      // Show success and redirect back to app
-      console.log('Showing success step');
+      // Signal the app with session tokens
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        await fetch('/api/signal', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            access_token: session.access_token,
+            refresh_token: session.refresh_token,
+            plan: selectedPlan,
+          })
+        });
+        console.log('Signal sent to app');
+      }
+
+      // Show success
       showSuccessStep();
     }
 
@@ -530,18 +559,9 @@
       window.location.reload();
     }
 
-    async function openApp() {
-      // Get current session and pass tokens to app via deep link
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session) {
-        const params = new URLSearchParams({
-          access_token: session.access_token,
-          refresh_token: session.refresh_token
-        });
-        window.location.href = `heyclaw://auth?${params.toString()}`;
-      } else {
-        window.location.href = 'heyclaw://open';
-      }
+    async function openApp(e) {
+      if (e) e.preventDefault();
+      window.location.href = 'heyclaw://open';
     }
   </script>
 </body>
